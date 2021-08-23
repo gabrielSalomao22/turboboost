@@ -1,5 +1,6 @@
 package com.example.turboboost.cliente.dtos;
 
+import com.example.turboboost.commons.TipoUsuario;
 import com.example.turboboost.commons.Usuario;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ public class UsuarioDTO {
 	public Usuario preencherObjeto(Usuario usuario) {
 		usuario.setEmail(this.email);
 		usuario.setSenha(this.senha);
+		usuario.setRole(TipoUsuario.CLIENTE);
 		
 		return usuario;
 	}

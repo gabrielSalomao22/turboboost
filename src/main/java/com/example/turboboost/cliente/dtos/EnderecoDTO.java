@@ -36,7 +36,8 @@ public class EnderecoDTO {
 		endereco.setCep(this.cep);
 		endereco.setNumero(this.numero);
 		endereco.setBairro(this.bairro);
-		endereco.setTipoEndereco(!this.tipoEndereco.isEmpty() || this.nomeEndereco == null ? TipoEndereco.AMBOS : TipoEndereco.valueOf(this.tipoEndereco));
+		System.err.println(tipoEndereco);
+		endereco.setTipoEndereco(this.tipoEndereco == null ? TipoEndereco.AMBOS : TipoEndereco.valueOf(this.tipoEndereco));
 		endereco.setTipoLogradouro(this.tipoLogradouro);
 		endereco.setTipoResidencia(this.tipoResidencia);
 		endereco.setCidade(new Cidade(this.cidade, new Estado(this.estado, new Pais(this.pais))));

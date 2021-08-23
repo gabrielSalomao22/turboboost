@@ -2,6 +2,7 @@ package com.example.turboboost.cliente.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -63,12 +64,12 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id")
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	@JoinTable(name = "cliente_cartao", joinColumns = {
 			@JoinColumn(name = "cliente_id", referencedColumnName = "id")}, inverseJoinColumns = {
 					@JoinColumn(name = "cartao_id", referencedColumnName = "id")})
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Cartao> cartoes;
+	private List<Cartao> cartoes = new ArrayList<Cartao>();
 
 }
