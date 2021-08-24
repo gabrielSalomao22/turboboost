@@ -1,5 +1,8 @@
 package com.example.turboboost.cliente;
 
+import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.turboboost.cliente.dao.ClienteDAO2;
-import com.example.turboboost.cliente.dao.Dao;
 import com.example.turboboost.cliente.dtos.ClienteDTO;
 import com.example.turboboost.cliente.models.Cliente;
 
@@ -31,7 +33,6 @@ public class ClienteController {
 		String msgErro = facade.validarCadastroInicial(clienteDTO);
 		if(msgErro != null) {
 			ModelAndView mv = new ModelAndView("cliente/cadastro");
-			System.err.println("MSG ERRO = " + msgErro);
 			mv.addObject("msgErro", msgErro);
 			return mv;
 		}
@@ -41,6 +42,18 @@ public class ClienteController {
 		dao.save(cliente);
 		//clienteDAO.salvar(cliente);
 		
-		return new ModelAndView("login");
+		return new ModelAndView("redirect:/login");
+	}
+	
+	@RequestMapping(path = "/bemVindoCliente", method = RequestMethod.GET)
+	public ModelAndView bemVindo(Principal principal) {
+		
+		ModelAndView mv = new ModelAndView("cliente/dados");
+		Optional<Cliente> cliente = dao.findByEmail(principal.getName());
+		
+		mv.addObject("clienteDTO", ClienteDTO.preencherDTO(cliente.get()));
+		System.err.println("ta na controller");
+		
+		return mv;
 	}
 }

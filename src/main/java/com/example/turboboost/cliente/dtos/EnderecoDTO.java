@@ -36,7 +36,6 @@ public class EnderecoDTO {
 		endereco.setCep(this.cep);
 		endereco.setNumero(this.numero);
 		endereco.setBairro(this.bairro);
-		System.err.println(tipoEndereco);
 		endereco.setTipoEndereco(this.tipoEndereco == null ? TipoEndereco.AMBOS : TipoEndereco.valueOf(this.tipoEndereco));
 		endereco.setTipoLogradouro(this.tipoLogradouro);
 		endereco.setTipoResidencia(this.tipoResidencia);
@@ -44,5 +43,24 @@ public class EnderecoDTO {
 		endereco.setObservacao(this.observacao);
 		
 		return endereco;
+	}
+	
+	public static EnderecoDTO preencherDTO(Endereco endereco) {
+		EnderecoDTO enderecoDTO = new EnderecoDTO();
+		
+		enderecoDTO.setNomeEndereco(endereco.getNomeEndereco());
+		enderecoDTO.setLogradouro(endereco.getLogradouro());
+		enderecoDTO.setCep(endereco.getCep());
+		enderecoDTO.setNumero(endereco.getNumero());
+		enderecoDTO.setBairro(endereco.getBairro());
+		enderecoDTO.setTipoEndereco(endereco.getTipoEndereco().toString());
+		enderecoDTO.setTipoResidencia(endereco.getTipoResidencia());
+		enderecoDTO.setTipoLogradouro(endereco.getTipoLogradouro());
+		enderecoDTO.setCidade(endereco.getCidade().getCidade());
+		enderecoDTO.setEstado(endereco.getCidade().getEstado().getEstado());
+		enderecoDTO.setPais(endereco.getCidade().getEstado().getPais().getPais());
+		enderecoDTO.setObservacao(endereco.getObservacao());
+		
+		return enderecoDTO;
 	}
 }

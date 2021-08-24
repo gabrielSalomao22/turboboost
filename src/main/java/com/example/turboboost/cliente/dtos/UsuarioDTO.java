@@ -25,4 +25,12 @@ public class UsuarioDTO {
 		
 		return usuario;
 	}
+	
+	public static UsuarioDTO preencherDTO(Usuario usuario) {
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		
+		usuarioDTO.setEmail(usuario.getEmail());
+		
+		return usuarioDTO;
+	}
 }

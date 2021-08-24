@@ -11,7 +11,6 @@ public class CriptografaSenhaStrategy {
 	PasswordEncoder encode = new BCryptPasswordEncoder();
 
 	public String processar(String senha) {
-		System.err.println(senha);
 		return encode.encode(senha);
 	}
 }

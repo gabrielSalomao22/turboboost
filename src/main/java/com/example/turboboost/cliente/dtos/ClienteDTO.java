@@ -1,6 +1,7 @@
 package com.example.turboboost.cliente.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
@@ -27,6 +28,8 @@ public class ClienteDTO {
 	private EnderecoDTO enderecoDTO;
 	private UsuarioDTO usuarioDTO;
 	private CartaoDTO cartaoDTO;
+	private List<CartaoDTO> cartoesDTO;
+	private List<EnderecoDTO> enderecosDTO;
 	
 	public Cliente preencherObjeto(Cliente cliente) {		
 		cliente.setNome(this.nome);
@@ -40,6 +43,20 @@ public class ClienteDTO {
 		cliente.setUsuario(usuarioDTO.preencherObjeto(new Usuario()));
 		
 		return cliente;
+	}
+	
+	public static ClienteDTO preencherDTO(Cliente cliente) {
+		ClienteDTO clienteDTO = new ClienteDTO();
+		
+		clienteDTO.setUsuarioDTO(UsuarioDTO.preencherDTO(cliente.getUsuario()));
+		clienteDTO.setNome(cliente.getNome());
+		clienteDTO.setDataNascimento(cliente.getDataNascimento().toString());
+		clienteDTO.setCpf(cliente.getCpf());
+		clienteDTO.setGenero(cliente.getGenero());
+		clienteDTO.setTelefone(cliente.getTelefone());
+		clienteDTO.setTipoTelefone(cliente.getTipoTelefone());
+		
+		return clienteDTO;
 	}
 	
 }

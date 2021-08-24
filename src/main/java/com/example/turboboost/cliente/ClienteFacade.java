@@ -19,7 +19,7 @@ public class ClienteFacade {
 			return msg;
 		}
 		
-		criptogradaSenha.processar(cliente.getUsuarioDTO().getSenha());
+		cliente.getUsuarioDTO().setSenha(criptogradaSenha.processar(cliente.getUsuarioDTO().getSenha()));
 		
 		msg = validarCpf.processar(cliente.getCpf());
 		if(msg != null) {
