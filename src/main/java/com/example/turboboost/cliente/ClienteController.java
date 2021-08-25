@@ -19,6 +19,8 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteDAO2 dao;
+	
+	ClienteFacade facade = new ClienteFacade();
 
 	@RequestMapping(path = "/novo", method = RequestMethod.GET)
 	public ModelAndView novoCadastro() {
@@ -27,8 +29,6 @@ public class ClienteController {
 	
 	@RequestMapping(path = "/novo", method = RequestMethod.POST)
 	public ModelAndView novoCadastro(ClienteDTO clienteDTO) {
-		
-		ClienteFacade facade = new ClienteFacade();
 		
 		String msgErro = facade.validarCadastroInicial(clienteDTO);
 		if(msgErro != null) {
@@ -52,8 +52,27 @@ public class ClienteController {
 		Optional<Cliente> cliente = dao.findByEmail(principal.getName());
 		
 		mv.addObject("clienteDTO", ClienteDTO.preencherDTO(cliente.get()));
-		System.err.println("ta na controller");
 		
 		return mv;
+	}
+	
+	@RequestMapping(path = "/editarCadastro", method = RequestMethod.POST)
+	public ModelAndView editarCadastro(ClienteDTO clienteDTO) {
+		
+		Optional<Cliente> clienteOptional = dao.findByHash(clienteDTO.getHashCliente());
+		
+		String msgErro = facade.validarAlteracaoCadastro(clienteDTO.getCpf());
+		if(msgErro != null) {
+			ModelAndView mv = new ModelAndView("cliente/dados");
+			mv.addObject("msgErro", msgErro);
+			return mv;
+		}
+		
+		Cliente cliente = clienteDTO.preencherObjetoEdicao(clienteOptional.get());
+		
+		dao.saveAndFlush(cliente);
+		
+		
+		return new ModelAndView("redirect:/bemVindoCliente");
 	}
 }

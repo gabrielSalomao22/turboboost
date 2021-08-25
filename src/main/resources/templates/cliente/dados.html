@@ -135,7 +135,7 @@
                             </div>
 
                             <div class="row h4 ml-1">
-                                <p><span class="font-weight-bold">Data de Nascimento: </span><span th:text="${clienteDTO.dataNascimento}"></span></p>
+                                <p><span class="font-weight-bold">Data de Nascimento: </span><span th:text="${clienteDTO.dataFormatada}"></span></p>
                             </div>
 
                             <div class="row h4 ml-1">
@@ -165,44 +165,27 @@
                         </div>
                         <div class="modal-body">
                           
-                            <form action="dados.html">
+                            <form th:action="@{/editarCadastro}" method="post" th:object="${clienteDTO}" enctype="multpart/form-data">
+                            	<input type="hidden" id="hashCliente" th:name="hashCliente" th:value="${clienteDTO.hashCliente}">
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="teste@teste.com" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="senha" class="form-label">Senha</label>
-                                        <input type="password" class="form-control" id="senha" name="senha" value="qwer1234" required>
-                                        <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Insira uma senha com pelo menos 8 caracteres!
-                                          </small>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-6">
-                                        <label for="confirmaSenha" class="form-label">Confirme a senha</label>
-                                        <input type="password" class="form-control" id="confirmaSenha" name="confirmaSenha" value="qwer1234" required>
-                                        <small id="passwordHelpBlock" class="form-text text-muted">
-                                            Repita a senha informada anteriormente!
-                                          </small>
+                                        <input type="email" class="form-control" id="email" th:name="usuarioDTO.email" th:value="${clienteDTO.usuarioDTO.email}" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <label for="nome" class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="nome" name="nome" value="Teste Cliente" required>
+                                        <input type="text" class="form-control" id="nome" th:name="nome" th:value="${clienteDTO.nome}" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <label for="dataNascimento" class="form-label">Data de nascimento</label>
-                                        <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" value="2021-08-16" required>
+                                        <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:value="${clienteDTO.dataNascimento}" required>
                                     </div>
                                 </div>
 
@@ -210,11 +193,11 @@
                                     <div class="col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label for="genero">Gênero</label>
-                                            <select class="form-control" id="genero" required>
+                                            <select class="form-control" id="genero" name="genero" required>
                                             <option value="">Selecione...</option>
-                                            <option value="masculino" selected>Masculino</option>
-                                            <option value="feminino">Feminino</option>
-                                            <option value="naoIdentificou">Prefiro não identificar</option>                                
+                                            <option value="masculino" th:selected="${clienteDTO.genero} == 'masculino'">Masculino</option>
+                                            <option value="feminino" th:selected="${clienteDTO.genero} == 'feminino'">Feminino</option>
+                                            <option value="naoIdentificou" th:selected="${clienteDTO.genero} == 'naoIdentificou'">Prefiro não identificar</option>                                
                                             </select>
                                         </div>
                                     </div>
@@ -223,7 +206,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <label for="cpf" class="form-label">CPF</label>
-                                        <input type="text" class="form-control" id="cpf" name="cpf" maxlength="11" value="11111111111" required>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" maxlength="11" th:value="${clienteDTO.cpf}" readonly>
                                     </div>
                                 </div>
 
@@ -232,19 +215,19 @@
 
                                     <div class="col-sm-12 col-md-12">
                                         <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="text" name="telefone" id="telefone" class="form-control" maxlength="9" value="xxxxxxxxx" required>
+                                        <input type="text" name="telefone" id="telefone" class="form-control" maxlength="9" th:value="${clienteDTO.telefone}" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="fixo" value="fixo" checked required>
+                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="fixo" value="fixo" th:checked="${clienteDTO.tipoTelefone == 'fixo'}" required>
                                             <label class="form-check-label" for="fixo">Fixo</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="movel" value="movel" required>
+                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="movel" value="movel" th:checked="${clienteDTO.tipoTelefone == 'movel'}" required>
                                             <label class="form-check-label" for="movel">Móvel</label>
                                         </div>
                                     </div>

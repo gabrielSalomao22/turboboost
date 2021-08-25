@@ -1,6 +1,7 @@
 package com.example.turboboost.cliente.dao;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,7 @@ public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
 			"		on usuario.id = cliente.usuario\r\n" + 
 			"	WHERE usuario.email = :email", nativeQuery = true)
 	Optional<Cliente> findByEmail(String email);
+	
+	@Query("SELECT c FROM Cliente c WHERE c.hash = :hash")
+	Optional<Cliente> findByHash(UUID hash);
 }

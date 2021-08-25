@@ -45,4 +45,15 @@ public class ClienteFacade {
 		
 		return null;
 	}
+	
+	public String validarAlteracaoCadastro(String cpf) {
+		String msg;
+		
+		msg = validarCpf.processar(cpf);
+		if(msg != null) {
+			return msg;
+		}
+		
+		return null;
+	}
 }
