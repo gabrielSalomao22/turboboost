@@ -75,4 +75,29 @@ public class ClienteController {
 		
 		return new ModelAndView("redirect:/bemVindoCliente");
 	}
+	
+	@RequestMapping(path = "/alterarSenha", method = RequestMethod.GET)
+	public ModelAndView alterarSenha() {
+		return new ModelAndView("cliente/senha");
+	}
+	
+	@RequestMapping(path = "/alterarSenha", method = RequestMethod.POST)
+	public ModelAndView alterarSenha(String novaSenha, String confirmaSenha, Principal principal) {
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		
+		String retorno = facade.validarAlteracaoSenha(novaSenha, confirmaSenha);
+		
+		if(retorno.contains(" ")) {
+			ModelAndView mv = new ModelAndView("cliente/senha");
+			mv.addObject("msgErro", retorno);
+			return mv;
+		}
+		
+		Cliente cliente = clienteOptional.get();
+		cliente.getUsuario().setSenha(retorno);
+		dao.saveAndFlush(cliente);
+		
+		return new ModelAndView("redirect:/bemVindoCliente");
+	}
 }

@@ -40,10 +40,8 @@ public class ClienteFacade {
 			return msg;
 		}
 		
-		criptogradaSenha.processar(novaSenha);
+		return criptogradaSenha.processar(novaSenha);
 		
-		
-		return null;
 	}
 	
 	public String validarAlteracaoCadastro(String cpf) {
