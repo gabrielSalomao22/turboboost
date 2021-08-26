@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShop</title>
+
+    <link th:href="@{/css/all.css}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TurboBoost AutoShop</div>
+            </a>
+
+
+            <hr class="sidebar-divider my-0">
+    
+            <hr class="sidebar-divider">
+
+            <div>
+                <div class="sidebar-heading">
+                    Minhas Informações
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/bemVindoCliente}">
+                        <span>Dados Básicos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/alterarSenha}">
+                        <span>Alterar Senha</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/meusEnderecos}">
+                        <span>Meus Enderços</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="cartao.html">
+                        <span>Meus Cartões</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Meus Pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Minhas Trocas</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Meus Cupons</span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+        
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                    
+						<li class="nav-item dropdown no-arrow" sec:authorize="isAuthenticated()">
+                        		<a class="" th:href="@{/logout}">
+                                    <i class="mr-2 text-gray-400"></i>
+                                    Sair
+                               	</a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div class="container-fluid">
+                    
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p class="h3">Meus Endereços</p>
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">Novo</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xl-3 col-md-6 mb-4" th:each="enderecoDTO : ${enderecosDTO}">
+                            <div class="card border-left-dark shadow h-100 py-2">
+                                <div class="card-body text-center">
+                                    <div class="row ml-2">
+                                        <p class="h4 font-weight-bold" th:text="${enderecoDTO.nomeEndereco}"></p>
+                                    </div>
+    
+                                    <div class="row ml-2 mt-2">
+                                        <p class="" th:text="${enderecoDTO.cep}"></p>
+                                    </div>
+    
+                                    <div class="row ml-2">
+                                        <p class="" th:text="${enderecoDTO.logradouro}"></p>
+                                    </div>
+    
+                                    <div class="row ml-2">
+                                        <p class="" th:text="${enderecoDTO.cidade}"></p>
+                                    </div>
+    
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-info mr-2" th:id="${enderecoDTO.hashEndereco}">Editar</button>
+                                            <button type="button" class="btn btn-danger" th:id="${enderecoDTO.hashEndereco}">Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Editar dados</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          
+                            <form th:action="@{/novoEndereco}" method="post" th:object="${enderecoDTO}" enctype="multpart/form-data">
+                            
+                            	<div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="enderecoDTO.nomeEndereco" class="form-label">Nome do endereço</label>
+                                        <input type="text" class="form-control" id="nomeEndereco" th:name="nomeEndereco" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="cep" class="form-label">CEP</label>
+                                        <input type="text" class="form-control" id="cep" name="cep" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-10">
+                                        <label for="logradouro" class="form-label">Logradouro</label>
+                                        <input type="text" class="form-control" id="logradouro" name="logradouro" required>
+                                    </div>
+                                    
+                                    <div class="col-sm-2 col-md-2">
+                                        <label for="numero" class="form-label">Número</label>
+                                        <input type="text" class="form-control" id="numero" name="numero" required>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label class="form-label">Tipo de logradouro</label><br>
+            
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoLogradouro" id="publico" value="publico" required>
+                                            <label class="form-check-label" for="publico">Público</label>
+                                        </div>
+            
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoLogradouro" id="privado" value="privado" required>
+                                            <label class="form-check-label" for="privado">Privado</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-6">
+                                        <label class="form-label">Tipo de residência</label><br>
+            
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoResidencia" id="casa" value="casa" required>
+                                            <label class="form-check-label" for="casa">Casa</label>
+                                        </div>
+            
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoResidencia" id="apartamento" value="apartamento" required>
+                                            <label class="form-check-label" for="apartamento">Apartamento</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <label for="bairro" class="form-label">Bairro</label>
+                                        <input type="text" id="bairro" name="bairro" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <label for="cidade" class="form-label">Cidade</label>
+                                        <input type="text" id="cidade" name="cidade" class="form-control" required>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <label for="estado" class="form-label">Estado</label>
+                                        <input type="text" id="estado" name="estado" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6">
+                                        <label for="pais" class="form-label">País</label>
+                                        <input type="text" id="pais" name="pais" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="observacao" class="form-label">Observação</label>
+                                        <input type="text" name="observacao" id="observacao" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="float-right mt-2">
+                                  <button type="button" class="btn btn-warning" data-dismiss="modal">Voltar</button>
+                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+    <script th:src="@{/js/cadastro.js}"></script>
+
+
+</body>
+
+</html>

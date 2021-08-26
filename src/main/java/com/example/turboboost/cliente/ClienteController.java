@@ -1,6 +1,8 @@
 package com.example.turboboost.cliente;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.turboboost.cliente.dao.ClienteDAO2;
 import com.example.turboboost.cliente.dtos.ClienteDTO;
+import com.example.turboboost.cliente.dtos.EnderecoDTO;
 import com.example.turboboost.cliente.models.Cliente;
+import com.example.turboboost.cliente.models.Endereco;
 
 @Controller
 public class ClienteController {
@@ -99,5 +103,37 @@ public class ClienteController {
 		dao.saveAndFlush(cliente);
 		
 		return new ModelAndView("redirect:/bemVindoCliente");
+	}
+	
+	@RequestMapping(path = "/meusEnderecos", method = RequestMethod.GET)
+	public ModelAndView meusEnderecos(Principal principal) {
+		ModelAndView mv = new ModelAndView("cliente/endereco");
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		
+		List<Endereco> enderecos = clienteOptional.get().getEnderecos();
+		List<EnderecoDTO> enderecosDTO = new ArrayList<EnderecoDTO>();
+		
+		for(Endereco e : enderecos) {
+			enderecosDTO.add(EnderecoDTO.preencherDTO(e));
+		}
+		
+		mv.addObject("enderecosDTO", enderecosDTO);
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(path = "/novoEndereco", method = RequestMethod.POST)
+	public ModelAndView novoEndereco(EnderecoDTO enderecoDTO, Principal principal) {
+		ModelAndView mv = new ModelAndView("redirect:/meusEnderecos");
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Cliente cliente = clienteOptional.get();
+		cliente.getEnderecos().add(enderecoDTO.preencherObjeto(new Endereco()));
+		
+		dao.saveAndFlush(cliente);
+		
+		return mv;
 	}
 }

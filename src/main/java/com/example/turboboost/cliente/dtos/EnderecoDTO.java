@@ -1,5 +1,7 @@
 package com.example.turboboost.cliente.dtos;
 
+import java.util.UUID;
+
 import com.example.turboboost.cliente.models.Cidade;
 import com.example.turboboost.cliente.models.Endereco;
 import com.example.turboboost.cliente.models.Estado;
@@ -30,6 +32,8 @@ public class EnderecoDTO {
 	private String pais;
 	private String observacao;
 	
+	private UUID hashEndereco;
+	
 	public Endereco preencherObjeto(Endereco endereco) {
 		endereco.setNomeEndereco(this.nomeEndereco);
 		endereco.setLogradouro(this.logradouro);
@@ -48,6 +52,7 @@ public class EnderecoDTO {
 	public static EnderecoDTO preencherDTO(Endereco endereco) {
 		EnderecoDTO enderecoDTO = new EnderecoDTO();
 		
+		enderecoDTO.setHashEndereco(endereco.getHash());
 		enderecoDTO.setNomeEndereco(endereco.getNomeEndereco());
 		enderecoDTO.setLogradouro(endereco.getLogradouro());
 		enderecoDTO.setCep(endereco.getCep());
