@@ -3,11 +3,15 @@ package com.example.turboboost.cliente.dao;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.turboboost.cliente.models.Cliente;
+import com.example.turboboost.cliente.models.Endereco;
 
 @Repository
 public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
@@ -20,4 +24,10 @@ public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
 	
 	@Query("SELECT c FROM Cliente c WHERE c.hash = :hash")
 	Optional<Cliente> findByHash(UUID hash);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Endereco e WHERE e.hash = :hash")
+	void deleteEndereco(UUID hash);
 }
+
