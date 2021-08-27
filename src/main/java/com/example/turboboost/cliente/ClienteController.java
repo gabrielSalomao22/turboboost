@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.turboboost.cliente.dao.ClienteDAO2;
+import com.example.turboboost.cliente.dtos.CartaoDTO;
 import com.example.turboboost.cliente.dtos.ClienteDTO;
 import com.example.turboboost.cliente.dtos.EnderecoDTO;
+import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 
@@ -173,4 +175,68 @@ public class ClienteController {
 		return new ModelAndView("redirect:/meusEnderecos");
 		
 	}
+	
+	@RequestMapping(path = "/meusCartoes", method = RequestMethod.GET)
+	public ModelAndView meusCartoes(Principal principal) {
+		
+		ModelAndView mv = new ModelAndView("cliente/cartao");
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		
+		List<Cartao> cartoes = clienteOptional.get().getCartoes();
+		List<CartaoDTO> cartoesDTO = new ArrayList<CartaoDTO>();
+		
+		for(Cartao c : cartoes) {
+			cartoesDTO.add(CartaoDTO.preencherDTO(c));
+		}
+		
+		mv.addObject("cartoesDTO", cartoesDTO);
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(path = "/novoCartao", method = RequestMethod.POST)
+	public ModelAndView novoCartao(CartaoDTO cartaoDTO, Principal principal) {
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Cliente cliente = clienteOptional.get();
+		cliente.getCartoes().add(cartaoDTO.preencherObjeto(new Cartao()));
+		
+		dao.saveAndFlush(cliente);
+		
+		return new ModelAndView("redirect:/meusCartoes");
+	}
+	
+	@RequestMapping(path = "/deletarCartao", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void deletarCartao(String hashCartao) {
+		
+		dao.deletarCartao(UUID.fromString(hashCartao));
+	}
+	
+	@RequestMapping(path = "/editarCartao", method = RequestMethod.GET)
+	public ResponseEntity<?> editarCartao(String hashCartao){
+		Optional<Cartao> cartaoOptional = dao.findCartaoByHash(UUID.fromString(hashCartao));
+		
+		return new ResponseEntity<>(CartaoDTO.preencherDTO(cartaoOptional.get()), HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/editarCartao", method = RequestMethod.POST)
+	public ModelAndView editarCartao(CartaoDTO cartaoDTO, Principal principal) {
+		Optional<Cartao> cartaoOptional = dao.findCartaoByHash(cartaoDTO.getHashCartao());
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Cartao cartao = cartaoDTO.preencherObjeto(cartaoOptional.get());
+		Cliente cliente = clienteOptional.get();
+		
+		int index = cliente.getCartoes().indexOf(cartaoOptional.get());
+		
+		cliente.getCartoes().set(index, cartao);
+		
+		dao.saveAndFlush(cliente);
+		
+		return new ModelAndView("redirect:/meusCartoes");
+	}
+
+
 }

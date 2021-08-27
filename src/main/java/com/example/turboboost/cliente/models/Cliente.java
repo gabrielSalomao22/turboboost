@@ -66,10 +66,8 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	@JoinColumn(name = "cliente_id")
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
-	@JoinTable(name = "cliente_cartao", joinColumns = {
-			@JoinColumn(name = "cliente_id", referencedColumnName = "id")}, inverseJoinColumns = {
-					@JoinColumn(name = "cartao_id", referencedColumnName = "id")})
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "cliente_id")
 	private List<Cartao> cartoes = new ArrayList<Cartao>();
 
 }

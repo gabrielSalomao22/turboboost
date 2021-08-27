@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 
@@ -32,5 +33,13 @@ public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
 	
 	@Query("SELECT e FROM Endereco e WHERE e.hash = :hash")
 	Optional<Endereco> findEnderecoByHash(UUID hash);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Cartao c WHERE c.hash = :hash")
+	void deletarCartao(UUID hash);
+	
+	@Query("SELECT c FROM Cartao c WHERE c.hash = :hash")
+	Optional<Cartao> findCartaoByHash(UUID hash);
 }
 

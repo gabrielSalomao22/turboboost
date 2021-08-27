@@ -1,5 +1,7 @@
 package com.example.turboboost.cliente.dtos;
 
+import java.util.UUID;
+
 import com.example.turboboost.cliente.models.Cartao;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +20,8 @@ public class CartaoDTO {
 	private String cvv;
 	private String bandeira;
 	
+	private UUID hashCartao;
+	
 	public Cartao preencherObjeto(Cartao cartao) {
 		cartao.setNumeroCartao(this.numeroCartao);
 		cartao.setNomeImpresso(this.nomeImpresso);
@@ -25,5 +29,17 @@ public class CartaoDTO {
 		cartao.setBandeira(this.bandeira);
 		
 		return cartao;
+	}
+	
+	public static CartaoDTO preencherDTO(Cartao cartao) {
+		CartaoDTO cartaoDTO = new CartaoDTO();
+		
+		cartaoDTO.setHashCartao(cartao.getHash());
+		cartaoDTO.setNumeroCartao(cartao.getNumeroCartao());
+		cartaoDTO.setNomeImpresso(cartao.getNomeImpresso());
+		cartaoDTO.setCvv(cartao.getCvv());
+		cartaoDTO.setBandeira(cartao.getBandeira());
+		
+		return cartaoDTO;
 	}
 }

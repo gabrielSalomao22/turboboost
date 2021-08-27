@@ -115,7 +115,7 @@
                     
                     <div class="row">
                         <div class="col-sm-11">
-                            <p class="h3">Meus Endereços</p>
+                            <p class="h3">Meus Cartões</p>
                         </div>
 
                         <div class="col-sm-1">
@@ -125,29 +125,25 @@
 
                     <div class="row">
 
-                        <div class="col-xl-3 col-md-6 mb-4" th:each="enderecoDTO : ${enderecosDTO}">
+                        <div class="col-xl-3 col-md-6 mb-4" th:each="cartaoDTO : ${cartoesDTO}">
                             <div class="card border-left-dark shadow h-100 py-2">
                                 <div class="card-body text-center">
                                     <div class="row ml-2">
-                                        <p class="h4 font-weight-bold" th:text="${enderecoDTO.nomeEndereco}"></p>
+                                        <p class="h4 font-weight-bold" th:text="${cartaoDTO.bandeira}"></p>
                                     </div>
     
                                     <div class="row ml-2 mt-2">
-                                        <p class="" th:text="${enderecoDTO.cep}"></p>
+                                        <p class=""><span class="font-weigth-bold">Número: </span><span th:text="${cartaoDTO.numeroCartao}"></span></p>
                                     </div>
     
-                                    <div class="row ml-2">
-                                        <p class="" th:text="${enderecoDTO.logradouro}"></p>
-                                    </div>
-    
-                                    <div class="row ml-2">
-                                        <p class="" th:text="${enderecoDTO.cidade}"></p>
+                                    <div class="row ml-2 mt-2">
+                                        <p class=""><span class="font-weigth-bold">Nome impresso: </span><span th:text="${cartaoDTO.nomeImpresso}"></span></p>
                                     </div>
     
                                     <div class="row">
                                         <div class="text-center">
-                                            <button type="button" class="btn btn-info mr-2 editar" th:id="${enderecoDTO.hashEndereco}">Editar</button>
-                                            <button type="button" class="btn btn-danger excluir" th:id="${enderecoDTO.hashEndereco}">Excluir</button>
+                                            <button type="button" class="btn btn-info mr-2 editar" data-toggle="modal" data-target="#exampleModal" th:id="${cartaoDTO.hashCartao}">Editar</button>
+                                            <button type="button" class="btn btn-danger excluir" th:id="${cartaoDTO.hashCartao}">Excluir</button>
                                         </div>
                                     </div>
                                 </div>
@@ -168,96 +164,32 @@
                         </div>
                         <div class="modal-body">
                           
-                            <form id="formEndereco" th:action="@{/novoEndereco}" method="post" th:object="${enderecoDTO}" enctype="multpart/form-data">
-                            	<input type="hidden" id="hashEndereco" name="hashEndereco">
-                            	<div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <label for="enderecoDTO.nomeEndereco" class="form-label">Nome do endereço</label>
-                                        <input type="text" class="form-control" id="nomeEndereco" th:name="nomeEndereco" required>
-                                    </div>
-                                </div>
-
+                            <form id="formCartao" th:action="@{/novoCartao}" method="post" th:object="${cartaoDTO}" enctype="multpart/form-data">
+								<input type="hidden" name="hashCartao" id="hashCartao">
+								
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
-                                        <label for="cep" class="form-label">CEP</label>
-                                        <input type="text" class="form-control" id="cep" name="cep" required>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-10 col-md-10">
-                                        <label for="logradouro" class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="logradouro" name="logradouro" required>
-                                    </div>
-                                    
-                                    <div class="col-sm-2 col-md-2">
-                                        <label for="numero" class="form-label">Número</label>
-                                        <input type="text" class="form-control" id="numero" name="numero" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label class="form-label">Tipo de logradouro</label><br>
-            
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoLogradouro" id="publico" value="publico" required>
-                                            <label class="form-check-label" for="publico">Público</label>
-                                        </div>
-            
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoLogradouro" id="privado" value="privado" required>
-                                            <label class="form-check-label" for="privado">Privado</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-12 col-md-6">
-                                        <label class="form-label">Tipo de residência</label><br>
-            
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoResidencia" id="casa" value="casa" required>
-                                            <label class="form-check-label" for="casa">Casa</label>
-                                        </div>
-            
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="tipoResidencia" id="apartamento" value="apartamento" required>
-                                            <label class="form-check-label" for="apartamento">Apartamento</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-6">
-                                        <label for="bairro" class="form-label">Bairro</label>
-                                        <input type="text" id="bairro" name="bairro" class="form-control" required>
-                                    </div>
-
-                                    <div class="col-sm-6 col-md-6">
-                                        <label for="cidade" class="form-label">Cidade</label>
-                                        <input type="text" id="cidade" name="cidade" class="form-control" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-6">
-                                        <label for="estado" class="form-label">Estado</label>
-                                        <input type="text" id="estado" name="estado" class="form-control" required>
-                                    </div>
-
-                                    <div class="col-sm-6 col-md-6">
-                                        <label for="pais" class="form-label">País</label>
-                                        <input type="text" id="pais" name="pais" class="form-control" required>
+                                        <label for="numeroCartao" class="form-label">Número do cartão</label>
+                                        <input type="text" name="numeroCartao" id="numeroCartao" class="form-control" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
-                                        <label for="observacao" class="form-label">Observação</label>
-                                        <input type="text" name="observacao" id="observacao" class="form-control">
+                                        <label for="nomeImpresso" class="form-label">Nome impresso no cartão</label>
+                                        <input type="text" name="nomeImpresso" id="nomeImpresso" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <div class="col-sm-6 col-md-6">
+                                        <label for="codigoSeguranca" class="form-label">CVV</label>
+                                        <input type="text" name="cvv" id="cvv" maxlength="3" class="form-control" required>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6">
+                                        <label for="bandeira" class="form-label">Bandeira</label>
+                                        <input type="text" name="bandeira" id="bandeira" class="form-control" required>
                                     </div>
                                 </div>
                                 
@@ -286,10 +218,9 @@
     <!-- Custom scripts for all pages-->
     <script th:src="@{/js/sb-admin-2.min.js}"></script>
     <script th:src="@{/js/jquery.mask.js}"></script>
+    <script th:src="@{/js/cartao.js}"></script>
 
-    <script th:src="@{/js/cadastro.js}"></script>
     <script th:src="@{/js/sweetAlert2/dist/sweetalert2.all.min.js}"></script>
-    <script th:src="@{/js/endereco.js}"></script>
 
 
 </body>
