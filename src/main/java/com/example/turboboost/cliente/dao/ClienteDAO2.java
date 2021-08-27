@@ -29,5 +29,8 @@ public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
 	@Modifying
 	@Query("DELETE FROM Endereco e WHERE e.hash = :hash")
 	void deleteEndereco(UUID hash);
+	
+	@Query("SELECT e FROM Endereco e WHERE e.hash = :hash")
+	Optional<Endereco> findEnderecoByHash(UUID hash);
 }
 

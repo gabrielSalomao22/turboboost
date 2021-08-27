@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -145,6 +146,31 @@ public class ClienteController {
 	public void excluirEndereco(String hashEndereco, Principal principal) {
 		
 		dao.deleteEndereco(UUID.fromString(hashEndereco));
+		
+	}
+	
+	@RequestMapping(path = "/editarEndereco", method = RequestMethod.GET)
+	public ResponseEntity<?> editarEndereco(String hashEndereco) {
+		Optional<Endereco> enderecoOptional = dao.findEnderecoByHash(UUID.fromString(hashEndereco));
+		
+		return new ResponseEntity<>(EnderecoDTO.preencherDTO(enderecoOptional.get()), HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/editarEndereco", method = RequestMethod.POST)
+	public ModelAndView editarEndereco(EnderecoDTO enderecoDTO, Principal principal) {
+		
+		Optional<Endereco> enderecoOptional = dao.findEnderecoByHash(enderecoDTO.getHashEndereco());
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Endereco endereco = enderecoDTO.preencherObjeto(enderecoOptional.get());
+		Cliente cliente = clienteOptional.get();
+		
+		int index = cliente.getEnderecos().indexOf(enderecoOptional.get());
+		
+		cliente.getEnderecos().set(index, endereco);
+		
+		dao.saveAndFlush(cliente);
+		
+		return new ModelAndView("redirect:/meusEnderecos");
 		
 	}
 }
