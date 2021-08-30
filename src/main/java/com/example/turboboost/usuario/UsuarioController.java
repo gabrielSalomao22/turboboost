@@ -38,7 +38,7 @@ public class UsuarioController {
 			
 		}else {
 			System.err.println("Admin");
-			return null;
+			return new ModelAndView("redirect:/admin/bemVindoAdmin");
 		}
 		
 		

@@ -57,7 +57,11 @@
                           </ul>
                           <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="basicoId">
-
+								
+								<div th:if="${msgErro}">
+                                    	<span class="text-danger" th:text="${msgErro}"></span>
+                                    </div>
+								
                                 <p class="h3 font-weight-bold">Informações Básicas</p>
 
                                     <div class="row">

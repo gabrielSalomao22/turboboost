@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.turboboost.cliente.dao.ClienteDAO2;
+import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.dtos.CartaoDTO;
 import com.example.turboboost.cliente.dtos.ClienteDTO;
 import com.example.turboboost.cliente.dtos.EnderecoDTO;
@@ -28,7 +28,7 @@ public class ClienteController {
 	
 	
 	@Autowired
-	private ClienteDAO2 dao;
+	private ClienteDAO dao;
 	
 	ClienteFacade facade = new ClienteFacade();
 
