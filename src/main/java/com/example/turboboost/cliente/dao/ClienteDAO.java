@@ -15,7 +15,7 @@ import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 
 @Repository
-public interface ClienteDAO2 extends JpaRepository<Cliente, Long>{
+public interface ClienteDAO extends JpaRepository<Cliente, Long>{
 
 	@Query(value = "Select * from cliente \r\n" + 
 			"	JOIN usuario\r\n" + 
