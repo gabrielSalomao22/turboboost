@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShop</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/css/all.css}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TurboBoost AutoShop</div>
+            </a>
+
+
+            <hr class="sidebar-divider my-0">
+    
+            <hr class="sidebar-divider">
+
+            <div>
+                <div class="sidebar-heading">
+                    Minhas Informações
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/bemVindoCliente}">
+                        <span>Dados Básicos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/alterarSenha}">
+                        <span>Alterar Senha</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/meusEnderecos}">
+                        <span>Meus Enderços</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/meusCartoes}">
+                        <span>Meus Cartões</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Meus Pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Minhas Trocas</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Meus Cupons</span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+        
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                    
+                        <li class="nav-item dropdown no-arrow" sec:authorize="isAuthenticated()">
+                        <a class="" th:href="@{/logout}">
+                                    <i class="mr-2 text-gray-400"></i>
+                                    Sair
+                                </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="container-fluid">
+                    
+                    <div class="card md-4 py-3 border-left-secondary">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-11">
+                                    <p class="h3">Meu dados</p>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">Editar</button>
+                                </div>
+                            </div>
+
+								
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">Email: </span><span  th:text="${clienteDTO.usuarioDTO.email}"></span></p>
+                            </div>
+
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">Nome: </span><span th:text="${clienteDTO.nome}"></span></p>
+                            </div>
+
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">Data de Nascimento: </span><span th:text="${clienteDTO.dataFormatada}"></span></p>
+                            </div>
+
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">CPF: </span><span  th:text="${clienteDTO.cpf}"></span></p>
+                            </div>
+
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">Gênero: </span><span th:text="${clienteDTO.genero}"></span></p>
+                            </div>
+
+                            <div class="row h4 ml-1">
+                                <p><span class="font-weight-bold">Telefone: </span><span th:text="${clienteDTO.telefone}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Editar dados</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          
+                            <form th:action="@{/editarCadastro}" method="post" th:object="${clienteDTO}" enctype="multpart/form-data">
+                            	<input type="hidden" id="hashCliente" th:name="hashCliente" th:value="${clienteDTO.hashCliente}">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" th:name="usuarioDTO.email" th:value="${clienteDTO.usuarioDTO.email}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="nome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="nome" th:name="nome" th:value="${clienteDTO.nome}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="dataNascimento" class="form-label">Data de nascimento</label>
+                                        <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" th:value="${clienteDTO.dataNascimento}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <label for="genero">Gênero</label>
+                                            <select class="form-control" id="genero" name="genero" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="masculino" th:selected="${clienteDTO.genero} == 'masculino'">Masculino</option>
+                                            <option value="feminino" th:selected="${clienteDTO.genero} == 'feminino'">Feminino</option>
+                                            <option value="naoIdentificou" th:selected="${clienteDTO.genero} == 'naoIdentificou'">Prefiro não identificar</option>                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" maxlength="11" th:value="${clienteDTO.cpf}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    
+
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="text" name="telefone" id="telefone" class="form-control" maxlength="9" th:value="${clienteDTO.telefone}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="fixo" value="fixo" th:checked="${clienteDTO.tipoTelefone == 'fixo'}" required>
+                                            <label class="form-check-label" for="fixo">Fixo</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="tipoTelefone" id="movel" value="movel" th:checked="${clienteDTO.tipoTelefone == 'movel'}" required>
+                                            <label class="form-check-label" for="movel">Móvel</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                
+                                <div class="float-right">
+                                  <button type="button" class="btn btn-warning" data-dismiss="modal">Voltar</button>
+                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+    
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+
+</body>
+
+</html>
