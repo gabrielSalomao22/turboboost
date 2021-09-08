@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.turboboost.commons.Usuario;
+import com.example.turboboost.produto.ProdutoService;
 
 @Controller
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioDao dao;
+	
+	@Autowired
+	private ProdutoService produtoService;
 	
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public ModelAndView login() {
@@ -42,5 +46,14 @@ public class UsuarioController {
 		}
 		
 		
+	}
+	
+	@RequestMapping(path = "/")
+	public ModelAndView index() {
+		ModelAndView mv = new ModelAndView("common/index");
+		
+		mv.addObject("produtosDTO", produtoService.listarParaVenda());
+		
+		return mv;
 	}
 }

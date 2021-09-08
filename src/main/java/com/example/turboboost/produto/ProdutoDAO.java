@@ -1,5 +1,6 @@
 package com.example.turboboost.produto;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -17,5 +18,6 @@ public interface ProdutoDAO extends JpaRepository<Produto, Long>{
 	@Query("DELETE FROM Produto p WHERE p.hash = :hash")
 	void deletarByHash(UUID hash);
 	
-	
+	@Query("SELECT p from Produto p WHERE p.status = 'Ativo' AND p.estoque > 0")
+	List<Produto> buscarParaVenda();
 }

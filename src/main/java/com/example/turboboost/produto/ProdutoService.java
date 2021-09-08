@@ -38,4 +38,15 @@ public class ProdutoService {
 		dao.deletarByHash(UUID.fromString(hashProduto));
 	}
 	
+	public List<ProdutoDTO> listarParaVenda(){
+		List<Produto> produtos = dao.buscarParaVenda();
+		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
+		
+		for(Produto p : produtos) {
+			produtosDTO.add(ProdutoDTO.preencherDTO(p));
+		}
+		
+		return produtosDTO;
+	}
+	
 }

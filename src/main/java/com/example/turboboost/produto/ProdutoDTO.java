@@ -37,7 +37,7 @@ public class ProdutoDTO {
 		produtoDTO.setNome(produto.getNome());
 		produtoDTO.setPreco(produto.getPreco());
 		produtoDTO.setEstoque(produto.getEstoque());
-		produtoDTO.setImagem(produto.getImagem());
+		produtoDTO.setImagem("imagens-produtos/" + produto.getImagem());
 		produtoDTO.setStatus(produto.getStatus());
 		
 		return produtoDTO;
