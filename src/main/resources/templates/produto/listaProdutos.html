@@ -42,7 +42,7 @@
 			        <th th:text="'R$' + ${produtoDTO.preco}"></th>
 			       	<th th:text="${produtoDTO.estoque}"></th>
 			       	<th th:text="${produtoDTO.status}"></th>
-			       	<th><a class="deletar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-trash text-danger"></i></a></th>
+			       	<th><a class="deletar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-trash text-danger deletar"></i></a></th>
 		        </tr>
 	        </tbody>
         </table>
@@ -60,110 +60,43 @@
 				</div>
 				<div class="modal-body">
 
-					<form id="formEndereco" th:action="@{/produto/novoProduto}" method="post"
-						th:object="${enderecoDTO}" enctype="multpart/form-data">
-						<input type="hidden" id="hashEndereco" name="hashEndereco">
+					<form id="formProduto" th:action="@{/produto/novoProduto}" method="post"
+						th:object="${produtoDTO}" enctype="multipart/form-data">
+						<input type="hidden" id="hashProduto" name="hashProduto">
+						
+						<div class="row">
+							<label for="imagemProduto" class="form-label">Imagem</label>
+							<input type="file" id="imagemUpload" name="imagemUpload" accept="image/png, imagem/jpeg, image/jpg" class="form-control">
+						</div>
+											
 						<div class="row">
 							<div class="col-sm-12 col-md-12">
-								<label for="enderecoDTO.nomeEndereco" class="form-label">Nome
-									do produto</label> <input type="text" class="form-control"
-									id="nomeEndereco" th:name="nomeEndereco" required>
+								<label for="sku" class="form-label">SKU</label>
+								<input type="text" class="form-control"
+									id="sku" th:name="sku" required>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-sm-12 col-md-12">
-								<label for="cep" class="form-label">CEP</label> <input
-									type="text" class="form-control" id="cep" name="cep" required>
+								<label for="nome" class="form-label">Nome</label> 
+								<input type="text" class="form-control" id="nome" name="nome" required>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-sm-10 col-md-10">
-								<label for="logradouro" class="form-label">Logradouro</label> <input
-									type="text" class="form-control" id="logradouro"
-									name="logradouro" required>
+								<label for="preco" class="form-label">Preço</label> 
+								<input type="number" class="form-control" id="preco"
+									name="preco" step="0.01" required>
 							</div>
 
 							<div class="col-sm-2 col-md-2">
-								<label for="numero" class="form-label">Número</label> <input
-									type="text" class="form-control" id="numero" name="numero"
+								<label for="estoque" class="form-label">Quantidade</label> 
+								<input type="number" class="form-control" id="estoque" name="estoque"
 									required>
 							</div>
 
-						</div>
-
-						<div class="row mt-3">
-							<div class="col-sm-12 col-md-6">
-								<label class="form-label">Tipo de logradouro</label><br>
-
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="tipoLogradouro" id="publico" value="publico" required>
-									<label class="form-check-label" for="publico">Público</label>
-								</div>
-
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="tipoLogradouro" id="privado" value="privado" required>
-									<label class="form-check-label" for="privado">Privado</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="row mt-3">
-							<div class="col-sm-12 col-md-6">
-								<label class="form-label">Tipo de residência</label><br>
-
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="tipoResidencia" id="casa" value="casa" required>
-									<label class="form-check-label" for="casa">Casa</label>
-								</div>
-
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="tipoResidencia" id="apartamento" value="apartamento"
-										required> <label class="form-check-label"
-										for="apartamento">Apartamento</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-6 col-md-6">
-								<label for="bairro" class="form-label">Bairro</label> <input
-									type="text" id="bairro" name="bairro" class="form-control"
-									required>
-							</div>
-
-							<div class="col-sm-6 col-md-6">
-								<label for="cidade" class="form-label">Cidade</label> <input
-									type="text" id="cidade" name="cidade" class="form-control"
-									required>
-							</div>
-
-						</div>
-
-						<div class="row">
-							<div class="col-sm-6 col-md-6">
-								<label for="estado" class="form-label">Estado</label> <input
-									type="text" id="estado" name="estado" class="form-control"
-									required>
-							</div>
-
-							<div class="col-sm-6 col-md-6">
-								<label for="pais" class="form-label">País</label> <input
-									type="text" id="pais" name="pais" class="form-control" required>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-12 col-md-12">
-								<label for="observacao" class="form-label">Observação</label> <input
-									type="text" name="observacao" id="observacao"
-									class="form-control">
-							</div>
 						</div>
 
 						<div class="float-right mt-2">
@@ -177,8 +110,14 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	
     </div>
 
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/produto.js}"></script>	
+	</th:block>
 
 </body>
 

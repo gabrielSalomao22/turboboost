@@ -1,6 +1,12 @@
 package com.example.turboboost.produto;
 
+import java.io.IOException;
 import java.util.UUID;
+
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.turboboost.commons.FileUpload;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +27,8 @@ public class ProdutoDTO {
 	private String imagem;
 	private String status;
 	
+	//private MultipartFile imagemUpload;
+	
 	public static ProdutoDTO preencherDTO(Produto produto) {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 		
@@ -33,5 +41,25 @@ public class ProdutoDTO {
 		produtoDTO.setStatus(produto.getStatus());
 		
 		return produtoDTO;
+	}
+	
+	public Produto preencherObjeto(Produto produto, MultipartFile file) throws IOException{
+		
+		System.err.println(this.sku);
+		
+		produto.setSku(this.sku);
+		produto.setNome(this.nome);
+		produto.setPreco(this.preco);
+		produto.setEstoque(this.estoque);
+		produto.setStatus("Ativo");
+		
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		produto.setImagem(fileName);
+		
+		String uploadDir = "imagens-produtos/";
+		
+		FileUpload.saveFile(uploadDir, fileName, file);
+		
+		return produto;
 	}
 }
