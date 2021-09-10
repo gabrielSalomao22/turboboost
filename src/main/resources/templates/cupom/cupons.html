@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShoop</title>
+
+
+    <link href="css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TurboBoost AutoShop</div>
+            </a>
+
+
+            <hr class="sidebar-divider my-0">
+    
+            <hr class="sidebar-divider">
+
+            <div>
+                <div class="sidebar-heading">
+                    Administrativo
+                </div>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Produtos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Clientes</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="pedidos.html">
+                        <span>Pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="trocasAdmin.html">
+                        <span>Trocas</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Cupons</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <span>Gráficos</span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+        
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                    
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrador</span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+
+                <div class="container-fluid">
+                    
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p class="h3">Cupons promocionais</p>
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">Novo</button>
+                        </div>
+                    </div>
+
+                    <table class="table mt-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Valor(%)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">DIS10</th>
+                                <th>10%</th>
+                                <th class="text-success">Ativo</th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">DIS25</th>
+                                <th>25%</th>
+                                <th class="text-danger">Inativo</th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    
+                    <p class="h3">Cupons de clientes</p>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Valor(R$)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <th scope="row">CLI1</th>
+                                <th>R$200,00</th>
+                                <th class="text-success">Disponível</th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+
+                            <tr>
+                                <th scope="row">CLI2</th>
+                                <th>R$13.000</th>
+                                <th class="text-danger">Utilizado</th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Novo cupom</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          
+                            <form action="cupons.html">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="codigoCupom" class="form-label">Código do cupom</label>
+                                        <input type="text" name="codigoCupom" id="codigoCupom" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="valor" class="form-label">Valor do Cupom(%)</label>
+                                        <input type="text" name="valor" id="valor" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="float-right mt-2">
+                                  <button type="button" class="btn btn-warning" data-dismiss="modal">Voltar</button>
+                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/jquery.easing.min.js"></script>
+
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
