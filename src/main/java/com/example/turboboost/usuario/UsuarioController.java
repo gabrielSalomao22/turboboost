@@ -1,6 +1,7 @@
 package com.example.turboboost.usuario;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.turboboost.commons.Usuario;
+import com.example.turboboost.produto.ProdutoDTO;
 import com.example.turboboost.produto.ProdutoService;
 
 @Controller
@@ -53,6 +55,23 @@ public class UsuarioController {
 		ModelAndView mv = new ModelAndView("common/index");
 		
 		mv.addObject("produtosDTO", produtoService.listarParaVenda());
+		
+		return mv;
+	}
+	
+	@RequestMapping(path = "/carrinho")
+	public ModelAndView carrinho(String[] itemCarrinho) {
+		ModelAndView mv = new ModelAndView("common/carrinho");
+		List<ProdutoDTO> produtosDTO = produtoService.exibirCarrinho(itemCarrinho);
+		
+		double precoTotal = 0;
+		
+		for(ProdutoDTO p : produtosDTO) {
+			precoTotal += p.getPreco();
+		}
+		
+		mv.addObject("produtosDTO", produtosDTO);
+		mv.addObject("precoTotal", precoTotal);
 		
 		return mv;
 	}

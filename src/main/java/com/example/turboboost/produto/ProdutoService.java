@@ -49,4 +49,19 @@ public class ProdutoService {
 		return produtosDTO;
 	}
 	
+	public List<ProdutoDTO> exibirCarrinho(String[] itemCarrinho){
+		List<Produto> produtos = new ArrayList<Produto>();
+		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
+		
+		for(String s : itemCarrinho) {
+			produtos.add(dao.findByHash(UUID.fromString(s)).get());
+		}
+		
+		for(Produto p : produtos) {
+			produtosDTO.add(ProdutoDTO.preencherDTO(p));
+		}
+		
+		return produtosDTO;
+	}
+	
 }
