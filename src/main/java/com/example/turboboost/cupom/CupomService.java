@@ -31,4 +31,15 @@ public class CupomService {
 		return cuponsDTO;
 		
 	}
+	
+	public void novo(CupomDTO cupomDTO) {
+		CupomPromocional cupom = new CupomPromocional();
+		cupom.setAtivo(true);
+		
+		cupom = cupomDTO.preencherObjetoNovo(cupom);
+		
+		System.err.println(cupom.getCodigo());
+		
+		dao.saveAndFlush(cupom);
+	}
 }

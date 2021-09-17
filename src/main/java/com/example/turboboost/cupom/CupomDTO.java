@@ -36,4 +36,12 @@ public class CupomDTO {
 		return cupomDTO;
 	}
 	
+	public CupomPromocional preencherObjetoNovo(CupomPromocional cupom) {
+		cupom.setCodigo(this.codigo);
+		cupom.setPorcentagem(this.porcentagem);
+		cupom.setValor(this.valor);
+		
+		return cupom;
+	}
+	
 }
