@@ -2,6 +2,7 @@ package com.example.turboboost.cupom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,17 @@ public class CupomService {
 		System.err.println(cupom.getCodigo());
 		
 		dao.saveAndFlush(cupom);
+	}
+	
+	public CupomDTO aplicarCupom(String codigo) {
+		Optional<CupomPromocional> cupomOptional = dao.findByCodigo(codigo);
+		
+		if(cupomOptional.isPresent()) {			
+			return CupomDTO.preencherDTO(cupomOptional.get());
+			
+		}else {
+			return null;
+		}
+		
 	}
 }
