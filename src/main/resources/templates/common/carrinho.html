@@ -31,7 +31,7 @@
                 </div>
 
 			
-			<form th:action="@{/finalizarCompra}" action="post" th:object="${pedidoDTO}">
+			<form th:action="@{/pedido/finalizar}" method="post" th:object="${pedidoDTO}" id="carrinho">
                 <div class="d-flex flex-row justify-content-between align-items-center p2 bg-white mt-4 px-3 rounded" th:each="produtoDTO : ${produtosDTO}">
                     <div class="mr-1 col-sm-3">
                         <!-- <img src="img/turbina.jpg" alt="" class="rounded" width="70"> -->
@@ -39,7 +39,7 @@
 
                     <div class="d-flex flex-column align-items-center product-details col-sm-3">
                         <span class="font-weight-bold" th:text="${produtoDTO.nome}"></span>
-                        <input type="hidden" th:value="${produtoDTO.hashProduto}" name="hashProduto" id="hashProduto">
+                        <input type="hidden" th:value="${produtoDTO.hashProduto}" name="hashProduto" id="itemPedido.hashProduto">
                     </div>
 
                     <div class="d-flex flex-row align-items-center col-sm-3">
@@ -56,7 +56,7 @@
                 </div>
                 
                 <input type="hidden" th:value="${precoTotal}" name="precoTotal" id="precoTotal">
-			</form>
+			
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white">
                     <h4 th:text="'Total: R$' + ${precoTotal}" id="valorText"></h4>
                 </div>
@@ -67,8 +67,9 @@
                 </div>
 
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white">
-                    <button class="btn btn-success btn-block btn-lg ml-2">Finalizar Compra</button>
+                    <button type="submit" class="btn btn-success btn-block btn-lg ml-2">Finalizar Compra</button>
                 </div>
+              </form>
             </div>
         </div>
 
