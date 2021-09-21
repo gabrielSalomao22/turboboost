@@ -20,5 +20,7 @@ public class PedidoDTO {
 	private double precoTotal;
 	private UUID cupomPromocional;
 	private UUID[] cupomCliente;
+	private UUID hashEndereco;
+	private UUID hashCartao;
 	
 }

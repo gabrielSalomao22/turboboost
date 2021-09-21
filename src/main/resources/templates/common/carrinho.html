@@ -27,11 +27,11 @@
         <div class="d-flex justify-content-center row">
             <div class="col-md-8">
                 <div class="p-2">
-                    <h3 class="font-weight-bold">Carrinho</h4>
+                    <h3 class="font-weight-bold">Carrinho</h3>
                 </div>
 
 			
-			<form th:action="@{/pedido/finalizar}" method="post" th:object="${pedidoDTO}" id="carrinho">
+			<form th:action="@{/pedido/prosseguir}" method="post" th:object="${pedidoDTO}" id="carrinho">
                 <div class="d-flex flex-row justify-content-between align-items-center p2 bg-white mt-4 px-3 rounded" th:each="produtoDTO : ${produtosDTO}">
                     <div class="mr-1 col-sm-3">
                         <!-- <img src="img/turbina.jpg" alt="" class="rounded" width="70"> -->
@@ -63,7 +63,7 @@
 
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
                     <input type="text" class="form-control border-0" placeholder="Cupom" name="cupom" id="cupom">
-                    <button class="btn btn-outline-primary ml-2 aplicar">Aplicar</button>
+                    <a class="btn btn-outline-primary ml-2 aplicar">Aplicar</a>
                 </div>
 
                 <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white">
@@ -75,10 +75,17 @@
 
     </div>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
+        <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+    
     <script th:src="@{/js/venda.js}"></script>
 </body>
 </html>
