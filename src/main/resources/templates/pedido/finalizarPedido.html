@@ -36,7 +36,7 @@
                 </div>
 
 			
-			<form th:action="@{/pedido/prosseguir}" method="post" th:object="${pedidoDTO}" id="carrinho">
+			<form th:action="@{/pedido/finalizar}" method="post" th:object="${pedidoDTO}" id="carrinho">
                 
                 <div th:each="itemDTO : ${itensDTO}">
                 	<input type="hidden" th:value="${itemDTO.hashProduto}" name="hashProduto" id="hashProduto">
@@ -47,6 +47,7 @@
 					<input type="hidden" th:value="${hashCupom}" name="cupomCliente" id="cupomCliente">                
                 </div>
                 	<input type="hidden" th:value="${pedidoDTO.cupomPromocional}" name="cupomPromocional" id="cupomPromocional">
+                	<input type="hidden" th:value="${pedidoDTO.precoTotal}" name="precoTotal" id="precoTotal">
                 	
                 	
                 <p class="h4" th:text="'Valor total: R$' + ${pedidoDTO.precoTotal}"></p>

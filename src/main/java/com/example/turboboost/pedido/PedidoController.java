@@ -25,6 +25,9 @@ public class PedidoController {
 	
 	@Autowired
 	private ClienteDAO clienteDAO;
+	
+	@Autowired
+	private PedidoService service;
 
 	
 	@RequestMapping(path = "/prosseguir", method = RequestMethod.POST)
@@ -64,6 +67,17 @@ public class PedidoController {
 		mv.addObject("enderecosDTO", enderecosDTO);
 		
 		return mv;
+	}
+	
+	@RequestMapping(path = "/finalizar", method = RequestMethod.POST)
+	public ModelAndView finalizarPedido(PedidoDTO pedidoDTO, Principal principal) {
+		
+		System.err.println(pedidoDTO.getHashEndereco());
+		System.err.println(pedidoDTO.getHashCartao());
+		
+		service.novo(pedidoDTO, principal);
+		
+		return new ModelAndView("redirect:/bemVindoCliente");
 	}
 	
 	
