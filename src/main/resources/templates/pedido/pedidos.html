@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/admin-layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShoop</title>
+
+
+    <link href="css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+      
+        <div id="content-wrapper" class="d-flex flex-column" layout:fragment="content">
+
+            <div id="content">
+
+                <div class="container-fluid">
+                    
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p class="h3">Pedidos</p>
+                        </div>                        
+                    </div>
+
+                    <table class="table mt-2 text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Valor(R$)</th>
+                                <th scope="col">Data</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Avançar status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="pedidoDTO : ${pedidosDTO}">
+                                <th scope="row" th:text="${pedidoDTO.nomeCliente}"></th>
+                                <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
+                                <th th:text="${pedidoDTO.dataFormatada}"></th>
+                                <th th:text="${pedidoDTO.status}"></th>
+                                <th class="text-success"><i class="fas fa-arrow-right"></i></th>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+        
+
+        </div>
+
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/jquery.easing.min.js"></script>
+
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

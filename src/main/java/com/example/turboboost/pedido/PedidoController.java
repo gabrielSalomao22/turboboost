@@ -80,5 +80,23 @@ public class PedidoController {
 		return new ModelAndView("redirect:/bemVindoCliente");
 	}
 	
+	@RequestMapping(path = "/pedidos", method = RequestMethod.GET)
+	public ModelAndView pedidos() {
+		ModelAndView mv = new ModelAndView("pedido/pedidos");
+		
+		mv.addObject("pedidosDTO", service.listarPedidos());
+		
+		return mv;
+	}
+	
+	@RequestMapping(path = "/meusPedidos", method = RequestMethod.GET)
+	public ModelAndView meusPedidos(Principal principal) {
+		ModelAndView mv = new ModelAndView("pedido/meusPedidos");
+		
+		mv.addObject("pedidosDTO", service.pedidosCliente(principal));
+		
+		return mv;
+	}
+	
 	
 }

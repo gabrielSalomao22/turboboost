@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,11 +52,35 @@ public class PedidoService {
 			
 		}
 		
-		System.err.println(enderecoOptional.isPresent());
-		System.err.println(cartaoOptional.isPresent());
-		
 		Pedido pedido = pedidoDTO.preencherObjeto(pedidoDTO, clienteOptional.get(), produtoDAO, enderecoOptional.get(), cartaoOptional.get(), cuponsUtilizado);
 		
 		dao.save(pedido);
+	}
+	
+	public List<PedidoDTO> listarPedidos(){
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+		List<Pedido> pedidos = dao.findAll();
+		
+		for(Pedido p : pedidos) {
+			Optional<Cliente> clienteOptional = clienteDAO.findByHash(UUID.fromString(p.getHashCliente()));
+			
+			pedidosDTO.add(PedidoDTO.preencherDTO(p, clienteOptional.get()));
+		}
+		
+		return pedidosDTO;
+		
+	}
+	
+	public List<PedidoDTO> pedidosCliente(Principal principal){
+		Optional<Cliente> clienteOptional = clienteDAO.findByEmail(principal.getName());
+		List<Pedido> pedidos = dao.findByClienteHash(clienteOptional.get().getHash().toString());
+		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
+		
+		for(Pedido p : pedidos) {
+			pedidosDTO.add(PedidoDTO.preencherDTO(p));
+		}
+		
+		
+		return pedidosDTO;
 	}
 }

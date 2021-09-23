@@ -1,6 +1,7 @@
 package com.example.turboboost.pedido;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,10 @@ public class PedidoDTO {
 	private UUID[] cupomCliente;
 	private UUID hashEndereco;
 	private UUID hashCartao;
+	private String nomeCliente;
+	private String dataFormatada;
+	private String status;
+	private UUID hashPedido;
 	
 	public Pedido preencherObjeto(PedidoDTO pedidoDTO, Cliente cliente, ProdutoDAO dao, Endereco endereco, Cartao cartao, List<CupomPromocional> cupons) {
 		Pedido pedido = new Pedido();
@@ -46,15 +51,40 @@ public class PedidoDTO {
 		}
 		
 		pedido.setDataPedido(LocalDate.now());
-		pedido.setHashCliente(cliente.getHash());
-		pedido.setHashEndereco(endereco.getHash());
-		pedido.setHashCartao(cartao.getHash());
+		pedido.setHashCliente(cliente.getHash().toString());
+		pedido.setHashEndereco(endereco.getHash().toString());
+		pedido.setHashCartao(cartao.getHash().toString());
 		pedido.setItens(itensPedido);
 		pedido.setCuponsUtilizados(cupons);
 		pedido.setValorTotal(this.precoTotal);
 		pedido.setStatus(StatusPedido.PROCESSAMENTO);
 		
 		return pedido;
+	}
+	
+	public static PedidoDTO preencherDTO(Pedido pedido, Cliente cliente) {
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		pedidoDTO.setHashPedido(pedido.getHash());
+		pedidoDTO.setNomeCliente(cliente.getNome());
+		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
+		pedidoDTO.setStatus(pedido.getStatus().getDescricao());
+		pedidoDTO.setPrecoTotal(pedido.getValorTotal());
+		
+		return pedidoDTO;
+	}
+	
+	public static PedidoDTO preencherDTO(Pedido pedido) {
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		pedidoDTO.setHashPedido(pedido.getHash());
+		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
+		pedidoDTO.setStatus(pedido.getStatus().getDescricao());
+		pedidoDTO.setPrecoTotal(pedido.getValorTotal());
+		
+		return pedidoDTO;
 	}
 	
 }

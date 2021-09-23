@@ -37,7 +37,7 @@ public class Pedido extends EntidadeBasica{/**
 	private LocalDate dataPedido;
 	
 	@Column(name = "hashCliente", nullable = false)
-	private UUID hashCliente;
+	private String hashCliente;
 	
 	@Column(name = "valorTotal", nullable = false)
 	private Double valorTotal;
@@ -55,10 +55,10 @@ public class Pedido extends EntidadeBasica{/**
 	private List<ItemPedido> itens;
 	
 	@Column(name = "hashEnderecoSelecionado", nullable = false)
-	private UUID hashEndereco;
+	private String hashEndereco;
 	
 	@Column(name = "hashCartaoSelecionado", nullable = false)
-	private UUID hashCartao;
+	private String hashCartao;
 	
 	@Column(name = "statusPedido", nullable = false)
 	private StatusPedido status;
