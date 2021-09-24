@@ -143,6 +143,21 @@ public class ClienteController {
 		return mv;
 	}
 	
+	@RequestMapping(path = "/novoEnderecoPedido", method = RequestMethod.POST)
+	public ResponseEntity<?> novoEnderecoPedido(EnderecoDTO enderecoDTO, Principal principal) {
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Cliente cliente = clienteOptional.get();
+		cliente.getEnderecos().add(enderecoDTO.preencherObjeto(new Endereco()));
+		
+		dao.saveAndFlush(cliente);
+		
+		Optional<Cliente> clienteO = dao.findByEmail(principal.getName());
+		List<Endereco> enderecos = clienteO.get().getEnderecos();
+		
+		return new ResponseEntity<>(EnderecoDTO.preencherDTO(enderecos.get(enderecos.size()-1)), HttpStatus.OK);
+		
+	}
+	
 	@RequestMapping(path = "/excluirEndereco", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void excluirEndereco(String hashEndereco, Principal principal) {
@@ -206,6 +221,20 @@ public class ClienteController {
 		dao.saveAndFlush(cliente);
 		
 		return new ModelAndView("redirect:/meusCartoes");
+	}
+	
+	@RequestMapping(path = "/novoCartaoPedido", method = RequestMethod.POST)
+	public ResponseEntity<?> novoCartaoPedido(CartaoDTO cartaoDTO, Principal principal){
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+		Cliente cliente = clienteOptional.get();
+		cliente.getCartoes().add(cartaoDTO.preencherObjeto(new Cartao()));
+		
+		dao.saveAndFlush(cliente);
+		
+		Optional<Cliente> clienteO = dao.findByEmail(principal.getName());
+		List<Cartao> cartoes = clienteO.get().getCartoes();
+		
+		return new ResponseEntity<>(CartaoDTO.preencherDTO(cartoes.get(cartoes.size()-1)), HttpStatus.OK);
 	}
 	
 	@RequestMapping(path = "/deletarCartao", method = RequestMethod.POST)

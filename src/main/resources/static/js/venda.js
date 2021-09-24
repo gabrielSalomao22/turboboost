@@ -13,6 +13,17 @@ $(".adicionar").click(function(){
 	$(this).prop('disabled', true);
 })
 
+$('input[name=quantidadeItem]').change(function(){
+	console.log(this.value);
+	console.log($('input[name=' + this.id +']').val())
+	
+	let precoNovo = parseFloat($("#precoTotal").val()) + parseFloat($('input[name=' + this.id +']').val());
+	console.log(precoNovo);
+	$("#precoTotal").val(precoNovo);
+	$("#valorText").text("Total: R$" + precoNovo);
+	
+})
+
 $(".aplicar").click(function(){
 
 	let cupom = $("#cupom").val();
@@ -80,5 +91,52 @@ $(".aplicar").click(function(){
 	});
 		
 });
+
+$("#formEndereco").on("submit", function(e){
+	var dataString = $(this).serialize();
+	
+	console.log("ta no ajax")
+	
+	$.ajax({
+		type: 'POST',
+		url: "/novoEnderecoPedido",
+		data: dataString,
+		success: function(data){
+			$("#enderecos").append(
+				`<div class="form-check" id="enderecos">
+            		<input class="form-check-input" type="radio" name="hashEndereco" id="` + data.hashEndereco + `" value="` + data.hashEndereco + `" required>
+            		<label class="form-check-label">` + data.nomeEndereco +`</label>
+            	</div>`
+			)
+		}
+	});
+	
+	e.preventDefault();
+	$('#modalEndereco').modal('hide');
+})
+
+$("#formCartao").on("submit", function(e){
+	var dataString = $(this).serialize();
+	
+	console.log("ajax cartao")
+	
+	$.ajax({
+		type: 'POST',
+		url: "/novoCartaoPedido",
+		data: dataString,
+		success: function(data){
+			$("#cartoes").append(
+				`<div class="form-check" id="enderecos">
+            		<input class="form-check-input" type="radio" name="hashCartao" id="` + data.hashCartao + `" value="` + data.hashCartao + `" required>
+            		<label class="form-check-label">` + data.bandeira +`</label>
+            	</div>`
+			)
+		}
+	});
+	
+	e.preventDefault();
+	$('#modalCartao').modal('hide');
+})
+
 
 
