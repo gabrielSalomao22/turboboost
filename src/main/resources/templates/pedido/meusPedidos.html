@@ -33,6 +33,7 @@
 
                     <p class="h3">Meus pedidos</p>
                     
+                    
                     <table class="table mt-2 text-center">
                         <thead>
                             <tr>
@@ -46,11 +47,11 @@
 
                         <tbody>
                             <tr th:each="pedidoDTO : ${pedidosDTO}">
-                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning"></i></th>
+                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}"></i></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>
-                                <th><i class="fas fa-trash text-danger"></i></th>
+                                <th><i class="fas fa-trash text-danger cancelar" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
                             </tr>
                         </tbody>
                     </table>
@@ -59,12 +60,8 @@
                 </div>
                 
             </div>
-                
-        </div>
-
-    </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -130,6 +127,17 @@
           </div>
         </div>
     </div>
+                
+        </div>
+
+    </div>
+    
+    <th:block layout:fragment="script">
+	    <script th:src="@{/js/troca.js}"></script>	
+	    <script th:src="@{/js/pedido.js}"></script>	
+	</th:block>
+
+
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

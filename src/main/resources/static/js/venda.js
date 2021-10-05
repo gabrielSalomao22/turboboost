@@ -41,7 +41,7 @@ $(".aplicar").click(function(){
 				if(data.porcentagem != null){
 					
 					if($("#cupomPromocional").length){
-						alert("Cupom promocional já utilizado");
+						$("#msgCupom").removeClass("invisible");
 						
 					}else{
 						let porcentagem = data.porcentagem / 100;

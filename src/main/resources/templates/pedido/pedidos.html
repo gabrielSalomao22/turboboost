@@ -53,7 +53,7 @@
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>
-                                <th class="text-success"><i class="fas fa-arrow-right"></i></th>
+                                <th class="text-success"><i class="fas fa-arrow-right status" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
                             </tr>
 
                         </tbody>
@@ -65,6 +65,10 @@
         </div>
 
     </div>
+    
+    <th:block layout:fragment="script">
+	    <script th:src="@{/js/pedido.js}"></script>		
+	</th:block>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

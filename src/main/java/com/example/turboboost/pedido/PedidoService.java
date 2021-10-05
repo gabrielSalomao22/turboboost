@@ -83,4 +83,33 @@ public class PedidoService {
 		
 		return pedidosDTO;
 	}
+	
+	public void alterarStatus(String hashPedido) {
+		Optional<Pedido> pedidoOptional = dao.findByHash(UUID.fromString(hashPedido));
+		
+		Pedido pedido = pedidoOptional.get();
+		
+		if(pedido.getStatus().equals(StatusPedido.PROCESSAMENTO)) {
+			pedido.setStatus(StatusPedido.SEPARACAO);
+			
+		}else if(pedido.getStatus().equals(StatusPedido.SEPARACAO)) {
+			pedido.setStatus(StatusPedido.TRANSPORTE);
+			
+		}else if(pedido.getStatus().equals(StatusPedido.TRANSPORTE)) {
+			pedido.setStatus(StatusPedido.ENTREGUE);
+		}
+		
+		dao.saveAndFlush(pedido);
+		
+	}
+	
+	public void cancelar(String hashPedido) {
+		Optional<Pedido> pedidoOptional = dao.findByHash(UUID.fromString(hashPedido));
+		
+		Pedido pedido = pedidoOptional.get();
+		
+		pedido.setStatus(StatusPedido.CANCELADO);
+		
+		dao.saveAndFlush(pedido);
+	}
 }
