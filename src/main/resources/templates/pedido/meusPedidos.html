@@ -37,7 +37,8 @@
                     <table class="table mt-2 text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Solicitar troca</th>                                
+                                <th scope="col">Solicitar troca</th>
+                                <th scope="col">Código do pedido</th>                                
                                 <th scope="col">Data do pedido</th>
                                 <th scope="col">Valor(R$)</th>
                                 <th scope="col">Status</th>
@@ -48,6 +49,7 @@
                         <tbody>
                             <tr th:each="pedidoDTO : ${pedidosDTO}">
                                 <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}"></i></th>
+                                <th th:text="${pedidoDTO.codigo}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>

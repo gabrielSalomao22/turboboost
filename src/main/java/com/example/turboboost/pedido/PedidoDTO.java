@@ -11,6 +11,7 @@ import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 import com.example.turboboost.cupom.CupomPromocional;
+import com.example.turboboost.cupom.GerarCodigo;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
 
@@ -25,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PedidoDTO {
 
-	
+	private String codigo;
 	private ItemPedido[] itens;
 	private UUID[] hashProduto;
 	private int[] quantidadeItem;
@@ -46,10 +47,11 @@ public class PedidoDTO {
 		
 		for(int i = 0; i < hashProduto.length; i++) {
 			Optional<Produto> produtoOptional = dao.findByHash(hashProduto[i]);
-			ItemPedido item = new ItemPedido(produtoOptional.get().getHash(), quantidadeItem[i]);
+			ItemPedido item = new ItemPedido(produtoOptional.get().getHash().toString(), quantidadeItem[i]);
 			itensPedido.add(item);
 		}
 		
+		pedido.setCodigo(GerarCodigo.gerarCodigo());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setHashCliente(cliente.getHash().toString());
 		pedido.setHashEndereco(endereco.getHash().toString());
@@ -66,6 +68,7 @@ public class PedidoDTO {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
+		pedidoDTO.setCodigo(pedido.getCodigo());
 		pedidoDTO.setHashPedido(pedido.getHash());
 		pedidoDTO.setNomeCliente(cliente.getNome());
 		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
@@ -79,6 +82,7 @@ public class PedidoDTO {
 		PedidoDTO pedidoDTO = new PedidoDTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
+		pedidoDTO.setCodigo(pedido.getCodigo());
 		pedidoDTO.setHashPedido(pedido.getHash());
 		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
 		pedidoDTO.setStatus(pedido.getStatus().getDescricao());

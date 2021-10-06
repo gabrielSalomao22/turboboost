@@ -33,6 +33,9 @@ public class Pedido extends EntidadeBasica{/**
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name = "codigo", nullable = false)
+	private String codigo;
+	
 	@Column(name = "dataPedido", nullable = false)
 	private LocalDate dataPedido;
 	

@@ -39,6 +39,7 @@
                     <table class="table mt-2 text-center">
                         <thead>
                             <tr>
+                            	<th scope="col">Código</th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Valor(R$)</th>
                                 <th scope="col">Data</th>
@@ -49,7 +50,8 @@
 
                         <tbody>
                             <tr th:each="pedidoDTO : ${pedidosDTO}">
-                                <th scope="row" th:text="${pedidoDTO.nomeCliente}"></th>
+                            	<th scope="row" th:text="${pedidoDTO.codigo}"></th>
+                                <th th:text="${pedidoDTO.nomeCliente}"></th>
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>
