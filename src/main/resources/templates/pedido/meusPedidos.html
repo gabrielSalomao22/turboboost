@@ -48,7 +48,7 @@
 
                         <tbody>
                             <tr th:each="pedidoDTO : ${pedidosDTO}">
-                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}"></i></th>
+                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
                                 <th th:text="${pedidoDTO.codigo}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
@@ -78,25 +78,35 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>Código do pedido: PED1</p>
+                            <p id="codigoPedido"></p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>Data do pedido: 02/09/21</p>
+                            <p id="dataPedido"></p>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>Valor: R$17.200</p>
+                            <p id="valorPedido"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p id="statusPedido"></p>
                         </div>
                     </div>
 
                     <hr>
+                    
+                    <div id="produtos">
+                    	
+                    </div>
 
-                    <div class="row">
+<!--                <div class="row">
                         <div class="form-group form-check ml-2">
                             <input type="checkbox" name="" id="" class="form-check-input">
                             <label for="" class="form-check-label">Turbina Garret - <span>R$13.000</span></label>
@@ -115,7 +125,7 @@
                             <input type="checkbox" name="" id="" class="form-check-input">
                             <label for="" class="form-check-label">Filtro K&N - <span>R$700</span></label>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="float-right mt-2">
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Voltar</button>

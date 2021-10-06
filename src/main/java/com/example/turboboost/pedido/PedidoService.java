@@ -15,7 +15,9 @@ import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 import com.example.turboboost.cupom.CupomDAO;
 import com.example.turboboost.cupom.CupomPromocional;
+import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
+import com.example.turboboost.produto.ProdutoDTO;
 
 @Service
 public class PedidoService {
@@ -111,5 +113,24 @@ public class PedidoService {
 		pedido.setStatus(StatusPedido.CANCELADO);
 		
 		dao.saveAndFlush(pedido);
+	}
+	
+	public PedidoDTO buscarInfosTroca(String hashPedido) {
+		Optional<Pedido> pedidoOptional = dao.findByHash(UUID.fromString(hashPedido));
+		Pedido pedido = pedidoOptional.get();
+		
+		List<ItemPedido> itensPedido = pedido.getItens();
+		List<ProdutoDTO> produtosDTO = new ArrayList<ProdutoDTO>();
+		
+		for(ItemPedido i : itensPedido) {
+			Optional<Produto> produtoOptional = produtoDAO.findByHash(UUID.fromString(i.getHashProduto()));
+			
+			for(int y = 1; y <= i.getQuantidadeItem(); y++) {
+				produtosDTO.add(ProdutoDTO.preencherDTO(produtoOptional.get()));
+			}
+		}
+		
+		
+		return PedidoDTO.preencherDTO(pedido, produtosDTO);
 	}
 }

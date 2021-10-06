@@ -14,6 +14,7 @@ import com.example.turboboost.cupom.CupomPromocional;
 import com.example.turboboost.cupom.GerarCodigo;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
+import com.example.turboboost.produto.ProdutoDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class PedidoDTO {
 	private String dataFormatada;
 	private String status;
 	private UUID hashPedido;
+	private List<ProdutoDTO> produtosDTO;
 	
 	public Pedido preencherObjeto(PedidoDTO pedidoDTO, Cliente cliente, ProdutoDAO dao, Endereco endereco, Cartao cartao, List<CupomPromocional> cupons) {
 		Pedido pedido = new Pedido();
@@ -87,6 +89,20 @@ public class PedidoDTO {
 		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
 		pedidoDTO.setStatus(pedido.getStatus().getDescricao());
 		pedidoDTO.setPrecoTotal(pedido.getValorTotal());
+		
+		return pedidoDTO;
+	}
+	
+	public static PedidoDTO preencherDTO(Pedido pedido, List<ProdutoDTO> produtosDTO) {
+		PedidoDTO pedidoDTO = new PedidoDTO();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		pedidoDTO.setHashPedido(pedido.getHash());
+		pedidoDTO.setProdutosDTO(produtosDTO);
+		pedidoDTO.setCodigo(pedido.getCodigo());
+		pedidoDTO.setDataFormatada(pedido.getDataPedido().format(formatter));
+		pedidoDTO.setPrecoTotal(pedido.getValorTotal());
+		pedidoDTO.setStatus(pedido.getStatus().getDescricao());
 		
 		return pedidoDTO;
 	}
