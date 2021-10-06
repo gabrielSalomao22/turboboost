@@ -20,18 +20,21 @@ $(".troca").click(function(){
 					$("#produtos").append(
 					`<div class="row">
                         <div class="form-group form-check ml-2">
-                            <input type="checkbox" name="` + data.produtosDTO[i].hashProduto + `" id="" class="form-check-input">
+                            <input type="checkbox" name="` + data.produtosDTO[i].hashProduto + `" id="" class="form-check-input selecionado">
                             <label for="" class="form-check-label">` + data.produtosDTO[i].nome + ` - <span>R$` + data.produtosDTO[i].preco + `</span></label>
+                            <input type="hidden" name="hashProduto" value="` + data.produtosDTO[i].hashProduto + `" id="` + data.produtosDTO[i].hashProduto + `" disabled>
                         </div>
                     </div>`
 					)
 					
 				}
 				
-				console.log(data.produtosDTO[1].hashProduto)
 			
 			}
 	})
 	
-	
+})
+
+$(".selecionado").click(function(){
+	console.log(this.id);
 })
