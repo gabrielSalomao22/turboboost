@@ -34,5 +34,7 @@ public class CupomPromocional extends EntidadeBasica{/**
 	@Column(name = "ativo", nullable = false)
 	private boolean ativo;
 	
+	@Column(name = "hashCliente", nullable = true)
+	private String hashCliente;
 
 }

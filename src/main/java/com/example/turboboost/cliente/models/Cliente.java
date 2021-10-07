@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import com.example.turboboost.commons.EntidadeBasica;
 import com.example.turboboost.commons.Usuario;
+import com.example.turboboost.cupom.CupomPromocional;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -69,5 +70,6 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id")
 	private List<Cartao> cartoes = new ArrayList<Cartao>();
+	
 
 }

@@ -14,6 +14,7 @@ public class GerarCodigo {
 		codigo += rand.nextInt(maximo);
 		codigo += rand.nextInt(maximo);
 		codigo += rand.nextInt(maximo);
+		codigo += rand.nextInt(maximo);
 		
 		return codigo;
 	}
