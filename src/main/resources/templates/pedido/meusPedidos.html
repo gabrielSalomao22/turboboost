@@ -74,7 +74,7 @@
             </div>
             <div class="modal-body">
               
-                <form action="meusPedidos.html">
+                <form th:action="@{/troca/solicitar}" method="post" th:object="${trocaDTO}">
 
                     <div class="row">
                         <div class="col-sm-12">

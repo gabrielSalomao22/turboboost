@@ -35,6 +35,20 @@ $(".troca").click(function(){
 	
 })
 
-$(".selecionado").click(function(){
-	console.log(this.id);
+
+$('body').on('click', '.selecionado', function(){
+	if($(this).is(":checked")){
+		let id = "#" + $(this).attr('name');
+		
+		$(id).prop("disabled", false);
+		
+	}else{
+		let id = "#" + $(this).attr('name');
+		
+		$(id).prop("disabled", true);
+	}
+	
+	
 })
+
+

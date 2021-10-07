@@ -266,6 +266,12 @@ public class ClienteController {
 		
 		return new ModelAndView("redirect:/meusCartoes");
 	}
+	
+	@RequestMapping(path = "/minhasTrocas", method = RequestMethod.GET)
+	public ModelAndView minhasTrocas(Principal principal) {
+		
+		return new ModelAndView("troca/minhasTrocas");
+	}
 
 
 }
