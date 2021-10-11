@@ -48,4 +48,12 @@ public class CupomDTO {
 		return cupom;
 	}
 	
+	public static CupomPromocional preencherCupomTroca(CupomPromocional cupom, String hashCliente, double valor) {
+		cupom.setCodigo("CP" + GerarCodigo.gerarCodigo());
+		cupom.setValor(valor);
+		cupom.setHashCliente(hashCliente);
+		
+		return cupom;
+	}
+	
 }

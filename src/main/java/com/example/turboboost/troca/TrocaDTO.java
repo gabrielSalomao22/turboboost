@@ -1,6 +1,11 @@
 package com.example.turboboost.troca;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import com.example.turboboost.cupom.GerarCodigo;
+import com.example.turboboost.pedido.StatusPedido;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +35,19 @@ public class TrocaDTO {
 		trocaDTO.setStatus(troca.getStatus().getDescricao());
 		
 		return trocaDTO;
+	}
+	
+	public Troca preencherObjeto(String hashCliente, double valor, List<ItemTroca> itens) {
+		Troca troca = new Troca();
+		
+		troca.setCodigo(GerarCodigo.gerarCodigo());
+		troca.setHashCliente(hashCliente);
+		troca.setDataTroca(LocalDate.now());
+		troca.setValor(valor);
+		troca.setItens(itens);
+		troca.setStatus(StatusPedido.PROCESSAMENTO);
+		
+		return troca;
 	}
 	
 }

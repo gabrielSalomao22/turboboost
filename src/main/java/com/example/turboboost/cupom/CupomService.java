@@ -3,6 +3,7 @@ package com.example.turboboost.cupom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,27 @@ public class CupomService {
 		}else {
 			return null;
 		}
+		
+	}
+	
+	public void gerarCupomTroca(String hashCliente, double valor) {
+		CupomPromocional cupom = new CupomPromocional();
+		cupom.setAtivo(true);
+		
+		cupom = CupomDTO.preencherCupomTroca(cupom, hashCliente, valor);
+		
+		dao.saveAndFlush(cupom);
+	}
+	
+	public List<CupomDTO> listarCuponsCliente(UUID hashCliente) {
+		List<CupomPromocional> cupons = dao.findCuponsCliente(hashCliente);
+		List<CupomDTO> cuponsDTO = new ArrayList<CupomDTO>();
+		
+		for(CupomPromocional c : cupons) {
+			cuponsDTO.add(CupomDTO.preencherDTO(c));
+		}
+		
+		return cuponsDTO;
 		
 	}
 }
