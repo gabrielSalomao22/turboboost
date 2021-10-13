@@ -18,6 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TrocaDTO {
 
+	private String hashPedido;
 	private String[] hashProduto;
 	private String codigo;
 	private String dataFormatada;

@@ -22,8 +22,8 @@ import com.example.turboboost.cliente.dtos.EnderecoDTO;
 import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
-import com.example.turboboost.cupom.CupomPromocional;
 import com.example.turboboost.cupom.CupomService;
+import com.example.turboboost.troca.TrocaService;
 
 @Controller
 public class ClienteController {
@@ -34,6 +34,9 @@ public class ClienteController {
 	
 	@Autowired
 	private CupomService cupomService;
+	
+	@Autowired
+	private TrocaService trocaService;
 	
 	ClienteFacade facade = new ClienteFacade();
 
@@ -275,6 +278,17 @@ public class ClienteController {
 	@RequestMapping(path = "/minhasTrocas", method = RequestMethod.GET)
 	public ModelAndView minhasTrocas(Principal principal) {
 		ModelAndView mv = new ModelAndView("troca/minhasTrocas");
+		
+		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
+
+		mv.addObject("trocasDTO", trocaService.listarTrocaCliente(clienteOptional.get().getHash()));
+		
+		return mv;
+	}
+	
+	@RequestMapping(path = "/meusCupons", method = RequestMethod.GET)
+	public ModelAndView meusCupons(Principal principal) {
+		ModelAndView mv = new ModelAndView("cupom/meusCupons");
 		
 		Optional<Cliente> clienteOptional = dao.findByEmail(principal.getName());
 

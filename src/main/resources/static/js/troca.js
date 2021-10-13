@@ -15,6 +15,7 @@ $(".troca").click(function(){
 				$("#dataPedido").text("Data do pedido: " + data.dataFormatada);
 				$("#valorPedido").text("Valor do pedido: R$" + data.precoTotal);
 				$("#statusPedido").text("Status do pedido: " + data.status);
+				$("#hashPedido").val(data.hashPedido);
 				
 				for(var i = 0; i < data.produtosDTO.length; i++){
 					$("#produtos").append(

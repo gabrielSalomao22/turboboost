@@ -48,12 +48,12 @@
 
                         <tbody>
                             <tr th:each="pedidoDTO : ${pedidosDTO}">
-                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
+                                <th data-toggle="modal" data-target="#exampleModal" scope="row"><i class="fas fa-exchange-alt text-warning troca" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado' AND pedidoDTO.status != 'Troca solicitada'}"></i></th>
                                 <th th:text="${pedidoDTO.codigo}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>
-                                <th><i class="fas fa-trash text-danger cancelar" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
+                                <th><i class="fas fa-trash text-danger cancelar" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado' AND pedidoDTO.status != 'Troca solicitada'}"></i></th>
                             </tr>
                         </tbody>
                     </table>
@@ -99,6 +99,8 @@
                             <p id="statusPedido"></p>
                         </div>
                     </div>
+                    
+                    <input type="hidden" name="hashPedido" id="hashPedido" value="">
 
                     <hr>
                     

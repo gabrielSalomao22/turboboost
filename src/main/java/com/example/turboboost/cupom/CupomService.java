@@ -67,7 +67,7 @@ public class CupomService {
 	}
 	
 	public List<CupomDTO> listarCuponsCliente(UUID hashCliente) {
-		List<CupomPromocional> cupons = dao.findCuponsCliente(hashCliente);
+		List<CupomPromocional> cupons = dao.findCuponsCliente(hashCliente.toString());
 		List<CupomDTO> cuponsDTO = new ArrayList<CupomDTO>();
 		
 		for(CupomPromocional c : cupons) {

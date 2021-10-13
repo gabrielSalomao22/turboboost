@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cupom.CupomService;
+import com.example.turboboost.pedido.PedidoService;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
 
@@ -30,6 +31,9 @@ public class TrocaService {
 	@Autowired
 	private CupomService cupomService;
 	
+	@Autowired
+	private PedidoService pedidoService;
+	
 	public void novaTroca(TrocaDTO trocaDTO, Principal principal) {
 		Optional<Cliente> clienteOptional = clienteDAO.findByEmail(principal.getName());
 		List<ItemTroca> itens = new ArrayList<ItemTroca>();
@@ -46,8 +50,21 @@ public class TrocaService {
 		
 		dao.saveAndFlush(troca);
 		
+		pedidoService.solicitacaoTroca(trocaDTO.getHashPedido());
+		
 		cupomService.gerarCupomTroca(clienteOptional.get().getHash().toString(), valorCupom);
 		
 		
+	}
+	
+	public List<TrocaDTO> listarTrocaCliente(UUID hashCliente){
+		List<Troca> trocas = dao.findByHashCliente(hashCliente.toString());
+		List<TrocaDTO> trocasDTO = new ArrayList<TrocaDTO>();
+		
+		for(Troca t : trocas) {
+			trocasDTO.add(TrocaDTO.preencherDTO(t));
+		}
+		
+		return trocasDTO;
 	}
 }

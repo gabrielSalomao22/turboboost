@@ -31,42 +31,37 @@
 
                 <div class="container-fluid">
 
-                    <p class="h3">Minhas trocas</p>
+					<p class="h3">Meus cupons</p>
 
                     <table class="table text-center">
                         <thead>
                             <tr>
-                                <th scope="col">Código da troca</th>
-                                <th scope="col">Data da troca</th>
+                                <th scope="col">Código</th>
                                 <th scope="col">Valor(R$)</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr th:each="trocaDTO : ${trocasDTO}">
-                                <th scope="row" th:text="${trocaDTO.codigo}"></th>
-                                <th th:text="${trocaDTO.dataFormatada}"></th>
-                                <th th:text="'R$' + ${trocaDTO.valorTotal}"></th>
-                                <th th:text="${trocaDTO.status}"></th>
+                            <tr th:each="cupomDTO : ${cuponsDTO}">
+                                <th scope="row" th:text="${cupomDTO.codigo}"></th>
+                                <th th:text="${cupomDTO.valor}"></th>
+                                <th th:if="${cupomDTO.ativo}" th:text="Disponível" class="text-success"></th>
+                                <th th:if="${!cupomDTO.ativo}" th:text="Indisponível" class="text-danger"></th>
                             </tr>
                         </tbody>
                     </table>
 
 
-
                 </div>
                 
             </div>
+            
                 
         </div>
 
     </div>
-    
-    <th:block layout:fragment="script">
-	    <script th:src="@{/js/troca.js}"></script>	
-	    <script th:src="@{/js/pedido.js}"></script>	
-	</th:block>
+
 
 
 

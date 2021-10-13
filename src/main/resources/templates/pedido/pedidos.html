@@ -55,7 +55,7 @@
                                 <th th:text="'R$' + ${pedidoDTO.precoTotal}"></th>
                                 <th th:text="${pedidoDTO.dataFormatada}"></th>
                                 <th th:text="${pedidoDTO.status}"></th>
-                                <th class="text-success"><i class="fas fa-arrow-right status" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado'}"></i></th>
+                                <th class="text-success"><i class="fas fa-arrow-right status" th:id="${pedidoDTO.hashPedido}" th:if="${pedidoDTO.status != 'Cancelado' AND pedidoDTO.status != 'Troca solicitada'}"></i></th>
                             </tr>
 
                         </tbody>

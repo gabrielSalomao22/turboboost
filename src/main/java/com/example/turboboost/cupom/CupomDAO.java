@@ -17,6 +17,6 @@ public interface CupomDAO extends JpaRepository<CupomPromocional, Long>{
 	@Query("SELECT c FROM CupomPromocional c WHERE c.hash = :hash")
 	Optional<CupomPromocional> findByHash(UUID hash);
 	
-	@Query("SELECT c FROM CupomPromocional c WHERE c.hahsCliente = :hash")
-	List<CupomPromocional> findCuponsCliente(UUID hash);
+	@Query("SELECT c FROM CupomPromocional c WHERE c.hashCliente = :hash")
+	List<CupomPromocional> findCuponsCliente(String hash);
 }

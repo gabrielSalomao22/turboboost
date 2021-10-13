@@ -133,4 +133,14 @@ public class PedidoService {
 		
 		return PedidoDTO.preencherDTO(pedido, produtosDTO);
 	}
+	
+	public void solicitacaoTroca(String hashPedido) {
+		Optional<Pedido> pedidoOptional = dao.findByHash(UUID.fromString(hashPedido));
+		
+		Pedido pedido = pedidoOptional.get();
+		
+		pedido.setStatus(StatusPedido.TROCA);
+		
+		dao.saveAndFlush(pedido);
+	}
 }
