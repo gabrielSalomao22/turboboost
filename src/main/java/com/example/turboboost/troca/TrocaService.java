@@ -67,4 +67,16 @@ public class TrocaService {
 		
 		return trocasDTO;
 	}
+	
+	public List<TrocaDTO> listarTrocas(){
+		List<Troca> trocas = dao.findAll();
+		List<TrocaDTO> trocasDTO = new ArrayList<TrocaDTO>();
+		
+		for(Troca t : trocas) {
+			Optional<Cliente> clienteOptional = clienteDAO.findByHash(UUID.fromString(t.getHashCliente()));
+			trocasDTO.add(TrocaDTO.preencherDTOCliente(t, clienteOptional.get().getCpf()));
+		}
+		
+		return trocasDTO;
+	}
 }

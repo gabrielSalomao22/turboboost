@@ -24,16 +24,33 @@ public class TrocaDTO {
 	private String dataFormatada;
 	private Double valorTotal;
 	private String status;
+	private String cpfCliente;
+	private String hashTroca;
 	
 	
 	public static TrocaDTO preencherDTO(Troca troca) {
 		TrocaDTO trocaDTO = new TrocaDTO();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
+		trocaDTO.setHashTroca(troca.getHash().toString());
 		trocaDTO.setCodigo(troca.getCodigo());
 		trocaDTO.setDataFormatada(troca.getDataTroca().format(formatter));
 		trocaDTO.setValorTotal(troca.getValor());
 		trocaDTO.setStatus(troca.getStatus().getDescricao());
+		
+		return trocaDTO;
+	}
+	
+	public static TrocaDTO preencherDTOCliente(Troca troca, String cpfCliente) {
+		TrocaDTO trocaDTO = new TrocaDTO();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		trocaDTO.setHashTroca(troca.getHash().toString());
+		trocaDTO.setCodigo(troca.getCodigo());
+		trocaDTO.setDataFormatada(troca.getDataTroca().format(formatter));
+		trocaDTO.setValorTotal(troca.getValor());
+		trocaDTO.setStatus(troca.getStatus().getDescricao());
+		trocaDTO.setCpfCliente(cpfCliente);
 		
 		return trocaDTO;
 	}

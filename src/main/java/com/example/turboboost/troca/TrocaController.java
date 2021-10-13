@@ -24,4 +24,13 @@ public class TrocaController {
 		return new ModelAndView("redirect:/minhasTrocas");
 	}
 	
+	@RequestMapping(path = "/listarTrocas", method = RequestMethod.GET)
+	public ModelAndView listarAdmin() {
+		ModelAndView mv = new ModelAndView("troca/troca");
+		
+		mv.addObject("trocasDTO", service.listarTrocas());
+		
+		return mv;
+	}
+	
 }
