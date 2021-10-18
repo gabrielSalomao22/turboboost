@@ -33,7 +33,7 @@ public class PedidoDTO {
 	private int[] quantidadeItem;
 	private double precoTotal;
 	private UUID cupomPromocional;
-	private UUID[] cupomCliente;
+	private String[] cupomCliente;
 	private UUID hashEndereco;
 	private UUID hashCartao;
 	private String nomeCliente;

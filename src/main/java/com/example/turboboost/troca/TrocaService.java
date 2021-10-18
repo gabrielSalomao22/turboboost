@@ -13,6 +13,7 @@ import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cupom.CupomService;
 import com.example.turboboost.pedido.PedidoService;
+import com.example.turboboost.pedido.StatusPedido;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
 
@@ -78,5 +79,23 @@ public class TrocaService {
 		}
 		
 		return trocasDTO;
+	}
+	
+	public void alterarStatus(String hashTroca) {
+		Optional<Troca> trocaOptional = dao.findByHash(UUID.fromString(hashTroca));
+		
+		Troca troca = trocaOptional.get();
+		
+		if(troca.getStatus().equals(StatusPedido.PROCESSAMENTO)) {
+			troca.setStatus(StatusPedido.AGUARDANDO);
+			
+		}else if(troca.getStatus().equals(StatusPedido.AGUARDANDO)) {
+			troca.setStatus(StatusPedido.TRANSPORTE);
+			
+		}else if(troca.getStatus().equals(StatusPedido.TRANSPORTE)) {
+			troca.setStatus(StatusPedido.RECEBIDO);
+		}
+		
+		dao.saveAndFlush(troca);
 	}
 }

@@ -50,6 +50,23 @@ $('body').on('click', '.selecionado', function(){
 	}
 	
 	
+});
+
+$(".status").click(function(){
+	
+	console.log(this.id)
+	
+	$.ajax({
+		type: 'POST',
+		url: '/troca/alterarStatus',
+		data: {hashPedido: this.id},
+		async: true,
+		success: function(){
+			location.reload(true)
+			
+			}
+		})
+	
 })
 
 

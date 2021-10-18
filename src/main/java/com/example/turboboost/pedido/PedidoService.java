@@ -15,6 +15,7 @@ import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 import com.example.turboboost.cupom.CupomDAO;
 import com.example.turboboost.cupom.CupomPromocional;
+import com.example.turboboost.cupom.CupomService;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
 import com.example.turboboost.produto.ProdutoDTO;
@@ -34,6 +35,9 @@ public class PedidoService {
 	@Autowired
 	private CupomDAO cupomDAO;
 	
+	@Autowired
+	private CupomService cupomService;
+	
 	
 	public void novo(PedidoDTO pedidoDTO, Principal principal) {
 		Optional<Cliente> clienteOptional = clienteDAO.findByEmail(principal.getName());
@@ -43,7 +47,7 @@ public class PedidoService {
 		
 		if(pedidoDTO.getCupomCliente() != null) {
 			for(int i = 0; i < pedidoDTO.getCupomCliente().length; i++) {
-				Optional<CupomPromocional> cupomOptional = cupomDAO.findByHash(pedidoDTO.getCupomCliente()[i]);
+				Optional<CupomPromocional> cupomOptional = cupomDAO.findByHash(UUID.fromString(pedidoDTO.getCupomCliente()[i]));
 				cuponsUtilizado.add(cupomOptional.get());
 			}
 			
@@ -57,6 +61,10 @@ public class PedidoService {
 		Pedido pedido = pedidoDTO.preencherObjeto(pedidoDTO, clienteOptional.get(), produtoDAO, enderecoOptional.get(), cartaoOptional.get(), cuponsUtilizado);
 		
 		dao.save(pedido);
+		
+		for(String s : pedidoDTO.getCupomCliente()) {
+			cupomService.desativarCupomCliente(s);
+		}
 	}
 	
 	public List<PedidoDTO> listarPedidos(){

@@ -77,4 +77,14 @@ public class CupomService {
 		return cuponsDTO;
 		
 	}
+	
+	public void desativarCupomCliente(String hashCupom) {
+		Optional<CupomPromocional> cupomOptional = dao.findByHash(UUID.fromString(hashCupom));
+		
+		CupomPromocional cupom = cupomOptional.get();
+		
+		cupom.setAtivo(false);
+		
+		dao.saveAndFlush(cupom);
+	}
 }

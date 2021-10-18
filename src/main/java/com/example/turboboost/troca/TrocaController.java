@@ -3,9 +3,11 @@ package com.example.turboboost.troca;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,4 +35,12 @@ public class TrocaController {
 		return mv;
 	}
 	
+	@RequestMapping(path = "/alterarStatus", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void alterarStatus(String hashTroca) {
+		
+		service.alterarStatus(hashTroca);
+		
+	}
 }
+
