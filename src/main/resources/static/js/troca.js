@@ -59,7 +59,7 @@ $(".status").click(function(){
 	$.ajax({
 		type: 'POST',
 		url: '/troca/alterarStatus',
-		data: {hashPedido: this.id},
+		data: {hashTroca: this.id},
 		async: true,
 		success: function(){
 			location.reload(true)

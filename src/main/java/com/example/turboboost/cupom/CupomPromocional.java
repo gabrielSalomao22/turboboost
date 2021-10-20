@@ -1,10 +1,15 @@
 package com.example.turboboost.cupom;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.example.turboboost.commons.EntidadeBasica;
+import com.example.turboboost.pedido.Pedido;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,5 +41,9 @@ public class CupomPromocional extends EntidadeBasica{/**
 	
 	@Column(name = "hashCliente", nullable = true)
 	private String hashCliente;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pedido")
+	private Pedido pedido;
 
 }

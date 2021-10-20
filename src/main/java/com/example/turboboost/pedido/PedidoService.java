@@ -47,7 +47,7 @@ public class PedidoService {
 		
 		if(pedidoDTO.getCupomCliente() != null) {
 			for(int i = 0; i < pedidoDTO.getCupomCliente().length; i++) {
-				Optional<CupomPromocional> cupomOptional = cupomDAO.findByHash(UUID.fromString(pedidoDTO.getCupomCliente()[i]));
+				Optional<CupomPromocional> cupomOptional = cupomDAO.findByHash(pedidoDTO.getCupomCliente()[i]);
 				cuponsUtilizado.add(cupomOptional.get());
 			}
 			
@@ -62,9 +62,14 @@ public class PedidoService {
 		
 		dao.save(pedido);
 		
-		for(String s : pedidoDTO.getCupomCliente()) {
-			cupomService.desativarCupomCliente(s);
+		
+		if(pedidoDTO.getCupomCliente() != null) {
+			for(int i = 0; i < pedidoDTO.getCupomCliente().length; i++) {
+				cupomService.desativarCupomCliente(pedidoDTO.getCupomCliente()[i].toString());
+			}
+			
 		}
+		
 	}
 	
 	public List<PedidoDTO> listarPedidos(){

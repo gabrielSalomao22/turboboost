@@ -39,6 +39,8 @@ public class TrocaController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void alterarStatus(String hashTroca) {
 		
+		System.err.println(hashTroca);
+		
 		service.alterarStatus(hashTroca);
 		
 	}
