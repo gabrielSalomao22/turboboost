@@ -49,6 +49,9 @@ public class Troca extends EntidadeBasica{/**
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ItemTroca> itens;
 	
+	@Column(name = "motivoTroca", nullable = false)
+	private String motivoTroca;
+	
 	@Column(name = "status", nullable = false)
 	private StatusPedido status;
 

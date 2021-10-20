@@ -20,6 +20,7 @@ public class TrocaDTO {
 
 	private String hashPedido;
 	private String[] hashProduto;
+	private String motivoTroca;
 	private String codigo;
 	private String dataFormatada;
 	private Double valorTotal;
@@ -36,6 +37,7 @@ public class TrocaDTO {
 		trocaDTO.setCodigo(troca.getCodigo());
 		trocaDTO.setDataFormatada(troca.getDataTroca().format(formatter));
 		trocaDTO.setValorTotal(troca.getValor());
+		trocaDTO.setMotivoTroca(troca.getMotivoTroca());
 		trocaDTO.setStatus(troca.getStatus().getDescricao());
 		
 		return trocaDTO;
@@ -49,6 +51,7 @@ public class TrocaDTO {
 		trocaDTO.setCodigo(troca.getCodigo());
 		trocaDTO.setDataFormatada(troca.getDataTroca().format(formatter));
 		trocaDTO.setValorTotal(troca.getValor());
+		trocaDTO.setMotivoTroca(troca.getMotivoTroca());
 		trocaDTO.setStatus(troca.getStatus().getDescricao());
 		trocaDTO.setCpfCliente(cpfCliente);
 		
@@ -63,6 +66,7 @@ public class TrocaDTO {
 		troca.setDataTroca(LocalDate.now());
 		troca.setValor(valor);
 		troca.setItens(itens);
+		troca.setMotivoTroca(this.motivoTroca);
 		troca.setStatus(StatusPedido.PROCESSAMENTO);
 		
 		return troca;
