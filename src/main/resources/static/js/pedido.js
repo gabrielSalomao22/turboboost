@@ -27,7 +27,7 @@ $(".cancelar").click(function(){
 		  showCloseButton: true,
 		  showCancelButton: true,
 		  focusConfirm: false,
-		  confirmButtonText: 'Excluir',
+		  confirmButtonText: 'Cancelar',
 		  confirmButtonColor: '#a81b0c',
 		  cancelButtonText: 'Voltar',
 		  cancelButtonColor: '#edb602'

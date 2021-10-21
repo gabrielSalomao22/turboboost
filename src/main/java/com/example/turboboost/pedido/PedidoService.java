@@ -126,6 +126,8 @@ public class PedidoService {
 		pedido.setStatus(StatusPedido.CANCELADO);
 		
 		dao.saveAndFlush(pedido);
+		
+		cupomService.gerarCupomTroca(pedido.getHashCliente(), pedido.getValorTotal());
 	}
 	
 	public PedidoDTO buscarInfosTroca(String hashPedido) {
