@@ -69,4 +69,32 @@ $(".status").click(function(){
 	
 })
 
+$(".aceitar").click(function(){
+	
+	$.ajax({
+		type: 'POST',
+		url: '/troca/aceitarRecusar',
+		data: {hashTroca: this.id, status: true},
+		async: true,
+		success: function(){
+			location.reload(true)
+			
+			}
+		})
+})
+
+$(".recusar").click(function(){
+	
+	$.ajax({
+		type: 'POST',
+		url: '/troca/aceitarRecusar',
+		data: {hashTroca: this.id, status: false},
+		async: true,
+		success: function(){
+			location.reload(true)
+			
+			}
+		})
+})
+
 

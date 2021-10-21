@@ -67,7 +67,7 @@ public class TrocaDTO {
 		troca.setValor(valor);
 		troca.setItens(itens);
 		troca.setMotivoTroca(this.motivoTroca);
-		troca.setStatus(StatusPedido.PROCESSAMENTO);
+		troca.setStatus(StatusPedido.TROCA);
 		
 		return troca;
 	}

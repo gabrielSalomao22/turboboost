@@ -44,5 +44,13 @@ public class TrocaController {
 		service.alterarStatus(hashTroca);
 		
 	}
+	
+	@RequestMapping(path = "/aceitarRecusar", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void alterarStatus(String hashTroca, boolean status) {
+		
+		service.aceitarRecusar(hashTroca, status);
+		
+	}
 }
 

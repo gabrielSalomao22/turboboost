@@ -9,6 +9,8 @@ public enum StatusPedido {
 	CANCELADO("Cancelado"),
 	TROCA("Troca solicitada"),
 	TROCA_ACEITA("Troca aceita"),
+	TROCA_RECUSADA("Troca recusada"),
+	CONCLUIDO("Concluido"),
 	AGUARDANDO("Aguardando envio"),
 	RECEBIDO("Recebido");
 	

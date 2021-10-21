@@ -47,6 +47,8 @@
                                 <th scope="col">Data da solicitação</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Avançar status</th>
+                                <th scope="col">Aceitar</th>
+                                <th scope="col">Recusar</th>
                             </tr>
                         </thead>
 
@@ -59,7 +61,9 @@
                                 <th th:text="${trocaDTO.motivoTroca}"></th>
                                 <th th:text="${trocaDTO.dataFormatada}"></th>
                                 <th th:text="${trocaDTO.status}"></th>
-                                <th class="text-success"><i class="fas fa-arrow-right status" th:id="${trocaDTO.hashTroca}"></i></th>
+                                <th class="text-success"><i class="fas fa-arrow-right status" th:id="${trocaDTO.hashTroca}" th:if="${trocaDTO.status != 'Troca solicitada' AND trocaDTO.status != 'Concluido' AND trocaDTO.status != 'Troca recusada'}"></i></th>
+                                <th class="text-success"><i class="fas fa-check-circle aceitar" th:id="${trocaDTO.hashTroca}" th:if="${trocaDTO.status == 'Troca solicitada'}"></i></th>
+                                <th class="text-danger"><i class="fas fa-times-circle recusar" th:id="${trocaDTO.hashTroca}" th:if="${trocaDTO.status == 'Troca solicitada'}"></i></th>
                             </tr>
                         </tbody>
                     </table>

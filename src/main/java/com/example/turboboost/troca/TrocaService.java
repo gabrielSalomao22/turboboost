@@ -53,7 +53,7 @@ public class TrocaService {
 		
 		pedidoService.solicitacaoTroca(trocaDTO.getHashPedido());
 		
-		cupomService.gerarCupomTroca(clienteOptional.get().getHash().toString(), valorCupom);
+		//cupomService.gerarCupomTroca(clienteOptional.get().getHash().toString(), valorCupom);
 		
 		
 	}
@@ -86,7 +86,10 @@ public class TrocaService {
 		
 		Troca troca = trocaOptional.get();
 		
-		if(troca.getStatus().equals(StatusPedido.PROCESSAMENTO)) {
+		if(troca.getStatus().equals(StatusPedido.TROCA_ACEITA)) {
+			troca.setStatus(StatusPedido.PROCESSAMENTO);
+			
+		}else if(troca.getStatus().equals(StatusPedido.PROCESSAMENTO)) {
 			troca.setStatus(StatusPedido.AGUARDANDO);
 			
 		}else if(troca.getStatus().equals(StatusPedido.AGUARDANDO)) {
@@ -94,8 +97,26 @@ public class TrocaService {
 			
 		}else if(troca.getStatus().equals(StatusPedido.TRANSPORTE)) {
 			troca.setStatus(StatusPedido.RECEBIDO);
+			
 		}
 		
 		dao.saveAndFlush(troca);
+	}
+	
+	public void aceitarRecusar(String hashTroca, boolean status) {
+		
+		Optional<Troca> trocaOptional = dao.findByHash(UUID.fromString(hashTroca));
+		Troca troca = trocaOptional.get();
+		
+		if(status) {
+			troca.setStatus(StatusPedido.TROCA_ACEITA);
+			cupomService.gerarCupomTroca(troca.getHashCliente(), troca.getValor());
+			
+		}else {
+			troca.setStatus(StatusPedido.TROCA_RECUSADA);
+		}
+		
+		dao.saveAndFlush(troca);
+		
 	}
 }
