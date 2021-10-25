@@ -41,5 +41,15 @@ public interface ClienteDAO extends JpaRepository<Cliente, Long>{
 	
 	@Query("SELECT c FROM Cartao c WHERE c.hash = :hash")
 	Optional<Cartao> findCartaoByHash(UUID hash);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Cliente c WHERE c.hash = :hash")
+	void deletarCliente(UUID hash);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Usuario u WHERE u.hash = :hash")
+	void deletarUsuario(UUID hash);
 }
 
