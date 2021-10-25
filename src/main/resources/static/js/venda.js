@@ -13,16 +13,6 @@ $(".adicionar").click(function(){
 	$(this).prop('disabled', true);
 })
 
-$('input[name=quantidadeItem]').change(function(){
-	console.log(this.value);
-	console.log($('input[name=' + this.id +']').val())
-	
-	let precoNovo = parseFloat($("#precoTotal").val()) + parseFloat($('input[name=' + this.id +']').val());
-	console.log(precoNovo);
-	$("#precoTotal").val(precoNovo);
-	$("#valorText").text("Total: R$" + precoNovo);
-	
-})
 
 $(".aplicar").click(function(){
 
@@ -137,6 +127,55 @@ $("#formCartao").on("submit", function(e){
 	e.preventDefault();
 	$('#modalCartao').modal('hide');
 })
+
+$(".aumentar").click(function(){
+	
+	let maxQtd = parseInt($(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").prop("max"))
+	
+	console.log(maxQtd)
+	
+	
+	let valor = parseInt($(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").val());
+	
+	let id = $(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").prop("id")
+	
+	valor += 1;
+	
+	if(valor <= maxQtd){
+		
+		$(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").val(valor);
+		
+		let precoNovo = parseFloat($("#precoTotal").val()) + parseFloat($('input[name=' + id +']').val());
+		console.log(precoNovo);
+		$("#precoTotal").val(precoNovo);
+		$("#valorText").text("Total: R$" + precoNovo);
+	}
+	
+	
+})
+
+$(".diminuir").click(function(){
+	
+	let minQtd = 1
+	
+	let valor = parseInt($(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").val());
+	
+	let id = $(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").prop("id")
+	
+	valor -= 1;
+	
+	if(valor >= minQtd){
+		$(this).closest("div.col-sm-3").find("input[name='quantidadeItem']").val(valor);
+		
+		let precoNovo = parseFloat($("#precoTotal").val()) - parseFloat($('input[name=' + id +']').val());
+		console.log(precoNovo);
+		$("#precoTotal").val(precoNovo);
+		$("#valorText").text("Total: R$" + precoNovo);
+		
+	}
+	
+})
+
 
 
 

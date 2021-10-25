@@ -26,6 +26,7 @@ public class ProdutoDTO {
 	private int estoque;
 	private String imagem;
 	private String status;
+	private int qtdDisponivel;
 	
 	//private MultipartFile imagemUpload;
 	
@@ -37,7 +38,8 @@ public class ProdutoDTO {
 		produtoDTO.setNome(produto.getNome());
 		produtoDTO.setPreco(produto.getPreco());
 		produtoDTO.setEstoque(produto.getEstoque());
-		produtoDTO.setImagem("imagens-produtos/" + produto.getImagem());
+		produtoDTO.setQtdDisponivel(produto.getEstoque());
+		produtoDTO.setImagem("/imagens-produtos/" + produto.getImagem());
 		produtoDTO.setStatus(produto.getStatus());
 		
 		return produtoDTO;
