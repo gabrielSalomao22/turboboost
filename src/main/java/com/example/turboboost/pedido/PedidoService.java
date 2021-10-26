@@ -19,6 +19,7 @@ import com.example.turboboost.cupom.CupomService;
 import com.example.turboboost.produto.Produto;
 import com.example.turboboost.produto.ProdutoDAO;
 import com.example.turboboost.produto.ProdutoDTO;
+import com.example.turboboost.produto.ProdutoService;
 
 @Service
 public class PedidoService {
@@ -37,6 +38,9 @@ public class PedidoService {
 	
 	@Autowired
 	private CupomService cupomService;
+	
+	@Autowired
+	private ProdutoService produtoService;
 	
 	
 	public void novo(PedidoDTO pedidoDTO, Principal principal) {
@@ -69,6 +73,8 @@ public class PedidoService {
 			}
 			
 		}
+		
+		produtoService.dimunuirEstoque(pedido.getItens());
 		
 	}
 	
@@ -128,6 +134,8 @@ public class PedidoService {
 		dao.saveAndFlush(pedido);
 		
 		cupomService.gerarCupomTroca(pedido.getHashCliente(), pedido.getValorTotal());
+		
+		produtoService.aumentarEstoque(hashPedido);
 	}
 	
 	public PedidoDTO buscarInfosTroca(String hashPedido) {

@@ -3,17 +3,25 @@ package com.example.turboboost.produto;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.turboboost.pedido.ItemPedido;
+import com.example.turboboost.pedido.Pedido;
+import com.example.turboboost.pedido.PedidoDAO;
+
 @Service
 public class ProdutoService {
 
 	@Autowired
 	private ProdutoDAO dao;
+	
+	@Autowired
+	private PedidoDAO pedidoDAO;
 	
 	public List<ProdutoDTO> listarProdutos() {
 		List<Produto> produtos = dao.findAll();
@@ -62,6 +70,35 @@ public class ProdutoService {
 		}
 		
 		return produtosDTO;
+	}
+	
+	public void dimunuirEstoque(List<ItemPedido> itens) {
+		
+		for(ItemPedido i : itens) {
+			Optional<Produto> produtoO = dao.findByHash(UUID.fromString(i.getHashProduto()));
+			Produto produto = produtoO.get();
+			
+			produto.setEstoque(produto.getEstoque() - i.getQuantidadeItem());
+			
+			dao.saveAndFlush(produto);
+		}
+		
+	}
+	
+	public void aumentarEstoque(String hashPedido) {
+		Optional<Pedido> pedidoO = pedidoDAO.findByHash(UUID.fromString(hashPedido));
+		
+		Pedido pedido = pedidoO.get();
+		List<ItemPedido> itens = pedido.getItens();
+		
+		for(ItemPedido i : itens) {
+			Optional<Produto> produtoO = dao.findByHash(UUID.fromString(i.getHashProduto()));
+			Produto produto = produtoO.get();
+			
+			produto.setEstoque(produto.getEstoque() + i.getQuantidadeItem());
+			
+			dao.saveAndFlush(produto);
+		}
 	}
 	
 }

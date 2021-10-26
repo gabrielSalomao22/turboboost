@@ -21,6 +21,7 @@ import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
 import com.example.turboboost.cupom.CupomDTO;
+import com.example.turboboost.produto.ProdutoService;
 
 @Controller
 @RequestMapping(path = "/pedido")
