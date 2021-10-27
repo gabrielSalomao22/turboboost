@@ -53,16 +53,33 @@ $(".aplicar").click(function(){
 					
 				}else{
 					
-						let novoValor = valorTotal - data.valor;
-						$("#precoTotal").val(novoValor);
-						$("#valorText").text("Total: R$" + novoValor);
-						
-						$('<input>').attr({
-							type: 'hidden',
-							id: 'cupomCliente',
-							name: 'cupomCliente',
-							value: data.hashCupom
-						}).appendTo('form');
+						if(data.valor > valorTotal){
+							novoValor = parseFloat(0);
+							
+							let valorTroco = parseFloat(data.valor - valorTotal);
+							
+							$('<input>').attr({
+								type: 'hidden',
+								id: 'cupomTroco',
+								name: 'cupomTroco',
+								value: valorTroco
+							}).appendTo('form');
+							
+						}else{
+							let novoValor = valorTotal - data.valor;
+							$("#precoTotal").val(novoValor);
+							$("#valorText").text("Total: R$" + novoValor);
+							
+							$('<input>').attr({
+								type: 'hidden',
+								id: 'cupomCliente',
+								name: 'cupomCliente',
+								value: data.hashCupom
+							}).appendTo('form');
+							
+						}
+					
+					
 						
 					
 					
@@ -74,7 +91,7 @@ $(".aplicar").click(function(){
 			},
 			
 			404: function(){
-				alert("Cupom inválido!")
+				$("#msgCupom").removeClass("invisible");
 			}
 		
 		}
@@ -115,12 +132,23 @@ $("#formCartao").on("submit", function(e){
 		url: "/novoCartaoPedido",
 		data: dataString,
 		success: function(data){
-			$("#cartoes").append(
+			/*$("#cartoes").append(
 				`<div class="form-check" id="enderecos">
             		<input class="form-check-input" type="radio" name="hashCartao" id="` + data.hashCartao + `" value="` + data.hashCartao + `" required>
             		<label class="form-check-label">` + data.bandeira +`</label>
-            	</div>`
+            	</div>`*/
+			
+			$("#cartao1").append($('<option>'),{
+					value: data.hashCartao,
+					text: data.bandeira
+				})
 			)
+			
+			$("#cartao2").append($('<option>'),{
+				value: data.hashCartao,
+				text: data.bandeira
+			})
+		)
 		}
 	});
 	

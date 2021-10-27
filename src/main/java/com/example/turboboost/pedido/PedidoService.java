@@ -46,7 +46,7 @@ public class PedidoService {
 	public void novo(PedidoDTO pedidoDTO, Principal principal) {
 		Optional<Cliente> clienteOptional = clienteDAO.findByEmail(principal.getName());
 		Optional<Endereco> enderecoOptional = clienteDAO.findEnderecoByHash(pedidoDTO.getHashEndereco());
-		Optional<Cartao> cartaoOptional = clienteDAO.findCartaoByHash(pedidoDTO.getHashCartao());
+		Optional<Cartao> cartaoOptional = clienteDAO.findCartaoByHash(pedidoDTO.getHashCartao1());
 		List<CupomPromocional> cuponsUtilizado = new ArrayList<CupomPromocional>();
 		
 		if(pedidoDTO.getCupomCliente() != null) {
@@ -72,6 +72,10 @@ public class PedidoService {
 				cupomService.desativarCupomCliente(pedidoDTO.getCupomCliente()[i].toString());
 			}
 			
+		}
+		
+		if(pedidoDTO.getCupomTroco() != null) {
+			cupomService.gerarCupomTroca(clienteOptional.get().getHash().toString(), pedidoDTO.getCupomTroco());
 		}
 		
 		produtoService.dimunuirEstoque(pedido.getItens());

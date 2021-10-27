@@ -68,8 +68,11 @@ public class Pedido extends EntidadeBasica{/**
 	@Column(name = "hashEnderecoSelecionado", nullable = false)
 	private String hashEndereco;
 	
-	@Column(name = "hashCartaoSelecionado", nullable = false)
-	private String hashCartao;
+	@Column(name = "hashCartao1", nullable = false)
+	private String hashCartao1;
+	
+	@Column(name = "hashCartao2", nullable = true)
+	private String hashCartao2;
 	
 	@Column(name = "statusPedido", nullable = false)
 	private StatusPedido status;

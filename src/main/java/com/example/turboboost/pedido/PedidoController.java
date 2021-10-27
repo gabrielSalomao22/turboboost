@@ -76,9 +76,6 @@ public class PedidoController {
 	@RequestMapping(path = "/finalizar", method = RequestMethod.POST)
 	public ModelAndView finalizarPedido(PedidoDTO pedidoDTO, Principal principal) {
 		
-		System.err.println(pedidoDTO.getHashEndereco());
-		System.err.println(pedidoDTO.getHashCartao());
-		
 		service.novo(pedidoDTO, principal);
 		
 		return new ModelAndView("redirect:/bemVindoCliente");

@@ -35,11 +35,13 @@ public class PedidoDTO {
 	private UUID cupomPromocional;
 	private UUID[] cupomCliente;
 	private UUID hashEndereco;
-	private UUID hashCartao;
+	private UUID hashCartao1;
+	private UUID hashCartao2;
 	private String nomeCliente;
 	private String dataFormatada;
 	private String status;
 	private UUID hashPedido;
+	private Double cupomTroco;
 	private List<ProdutoDTO> produtosDTO;
 	
 	public Pedido preencherObjeto(PedidoDTO pedidoDTO, Cliente cliente, ProdutoDAO dao, Endereco endereco, Cartao cartao, List<CupomPromocional> cupons) {
@@ -57,7 +59,8 @@ public class PedidoDTO {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setHashCliente(cliente.getHash().toString());
 		pedido.setHashEndereco(endereco.getHash().toString());
-		pedido.setHashCartao(cartao.getHash().toString());
+		pedido.setHashCartao1(cartao.getHash().toString());
+		pedido.setHashCartao2(this.hashCartao2.toString());
 		pedido.setItens(itensPedido);
 		pedido.setCuponsUtilizados(cupons);
 		pedido.setValorTotal(this.precoTotal);
