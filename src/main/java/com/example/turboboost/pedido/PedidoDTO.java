@@ -60,7 +60,7 @@ public class PedidoDTO {
 		pedido.setHashCliente(cliente.getHash().toString());
 		pedido.setHashEndereco(endereco.getHash().toString());
 		pedido.setHashCartao1(cartao.getHash().toString());
-		pedido.setHashCartao2(this.hashCartao2.toString());
+		pedido.setHashCartao2(this.hashCartao2 != null ? this.hashCartao2.toString() : null);
 		pedido.setItens(itensPedido);
 		pedido.setCuponsUtilizados(cupons);
 		pedido.setValorTotal(this.precoTotal);

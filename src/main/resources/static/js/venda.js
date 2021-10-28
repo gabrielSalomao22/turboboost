@@ -54,6 +54,9 @@ $(".aplicar").click(function(){
 				}else{
 					
 						if(data.valor > valorTotal){
+							
+							console.log("ta no if")
+							
 							novoValor = parseFloat(0);
 							
 							let valorTroco = parseFloat(data.valor - valorTotal);
@@ -64,6 +67,16 @@ $(".aplicar").click(function(){
 								name: 'cupomTroco',
 								value: valorTroco
 							}).appendTo('form');
+							
+							$('<input>').attr({
+								type: 'hidden',
+								id: 'cupomCliente',
+								name: 'cupomCliente',
+								value: data.hashCupom
+							}).appendTo('form');
+							
+							$("#precoTotal").val(novoValor);
+							$("#valorText").text("Total: R$" + novoValor);
 							
 						}else{
 							let novoValor = valorTotal - data.valor;
@@ -138,17 +151,19 @@ $("#formCartao").on("submit", function(e){
             		<label class="form-check-label">` + data.bandeira +`</label>
             	</div>`*/
 			
-			$("#cartao1").append($('<option>'),{
+			$("#cartao1").append($('<option>',{
 					value: data.hashCartao,
 					text: data.bandeira
-				})
-			)
-			
-			$("#cartao2").append($('<option>'),{
+				}))
+				
+					$("#cartao2").append($('<option>',{
 				value: data.hashCartao,
 				text: data.bandeira
-			})
-		)
+			}))
+			
+			
+		
+		
 		}
 	});
 	
