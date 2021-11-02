@@ -24,4 +24,5 @@ public interface ProdutoDAO extends JpaRepository<Produto, Long>{
 	
 	@Query("SELECT p from Produto p WHERE p.hash = :hashProduto")
 	Optional<Produto> findByHash(UUID hashProduto);
+	
 }

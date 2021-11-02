@@ -1,5 +1,6 @@
 package com.example.turboboost.pedido;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,4 +17,7 @@ public interface PedidoDAO extends JpaRepository<Pedido, Long>{
 	
 	@Query("SELECT p FROM Pedido p WHERE p.hash = :hash")
 	Optional<Pedido> findByHash(UUID hash);
+	
+	@Query("SELECT p FROM Pedido p WHERE p.dataPedido = :data")
+	List<Pedido> findByData(LocalDate data);
 }
