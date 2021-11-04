@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/admin-layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShoop</title>
+
+
+        <link th:href="@{/css/all.css}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+        
+     <div id="content-wrapper" class="d-flex flex-column" layout:fragment="content">
+
+         <div id="content">
+
+                <div class="container-fluid">
+
+					<div class="row">
+                        <div class="col-sm-12">
+                            <p class="h3">Gráfico</p>
+                        </div>                     
+                    </div>
+                    
+                    <div class="row">
+                    
+                    	<form  id="formGrafico" th:action="@{/grafico/buscar}" method="get" enctype="multipart/form-data">
+                    	
+                    		<div class="row">
+	                    		<div class="col-md-5 form-group">
+	                    			<label for="dataInicio">Insira a data de inicio:</label>
+	                    			<input class="form-control" type="date" name="dataInicio" id="dataInicio">                    			
+	                    		</div>
+	                    		
+	                    		<div class="col-md-5 form-group">
+	                    			<label for="dataFinal">Insira a data final:</label>
+	                    			<input class="form-control" type="date" name="dataFinal" id="dataFinal">                    			
+	                    		</div>
+	                    		
+	                    		<div class="col-md-2" style="padding-top: 23px;">
+	                    			<button type="submit" class="btn btn-info">Buscar</button>                    			
+	                    		</div>
+                    		
+                    		</div>
+                    	
+                    	                    	
+                    	</form>
+                    
+                    </div>
+                    
+                    <div>
+                    	<canvas id="myChart"></canvas>
+                    </div>
+
+                </div>
+                
+                <script th:inline="javascript">
+                
+                	var uon = [[${dados}]];
+                	console.log(uon);
+                	
+                	const nomes = []
+                	const valores = []
+                	
+                	
+                	
+ 
+                
+                	const labels = [
+                			uon.datas,
+                	];
+                	
+                	const data = {
+                			labels: uon.datas,
+                			datasets: []                			
+                	}
+                	
+                	for(let i = 0; i < uon.produtos.length; i++){
+                		var o = Math.round, r = Math.random, s = 255;
+                		var cor = 'rgba(' + o(r()*s)+','+o(r()*s)+','+o(r()*s)+')';
+                		data.datasets.push({
+                			label: uon.produtos[i].nomeProduto,
+            				backgroundColor: cor,
+            				borderColor: cor,
+            				data: uon.produtos[i].qtd,
+                		})
+                	} 
+                	
+                	const config = {
+                			type: 'line',
+                			data: data,
+                			options: {}
+                	}
+                	
+                	const myChart = new Chart(
+                		document.getElementById('myChart'),
+                		config
+                	);
+                	
+                	
+                
+                </script>
+
+        </div>
+
+    </div>
+    
+    <th:block layout:fragment="script">
+	    <script th:src="@{/js/chart.js}"></script>		
+	</th:block>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+</body>
+
+</html>

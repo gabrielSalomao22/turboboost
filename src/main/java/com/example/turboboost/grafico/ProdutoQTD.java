@@ -1,5 +1,6 @@
 package com.example.turboboost.grafico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,10 +12,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GraficoDTO {
+public class ProdutoQTD {
 
-	private int qntDatas;
-	private List<DadosDTO> dados;
-	private List<ProdutoQTD> produtos;
-	private List<String> datas;
+	private String nomeProduto;
+	private List<Integer> qtd = new ArrayList<Integer>();
+	
 }

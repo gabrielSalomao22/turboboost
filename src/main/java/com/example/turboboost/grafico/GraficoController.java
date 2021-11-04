@@ -24,21 +24,13 @@ public class GraficoController {
 	@RequestMapping(path="/buscar", method=RequestMethod.GET)
 	public ModelAndView buscar(String dataInicio, String dataFinal) {
 		
+		ModelAndView mv = new ModelAndView("grafico/exibir");
 		
-		GraficoDTO dados = service.gerarDados(LocalDate.parse(dataInicio), LocalDate.parse(dataFinal));
+		GraficoDTO dados = service.gerarGrafico2(LocalDate.parse(dataInicio), LocalDate.parse(dataFinal));
 		
-		for(DadosDTO d : dados.getDados()) {
-			System.err.println(d.getData());
-			
-			for(ItemGraficoDTO ig : d.getItens()) {
-				System.err.println(ig.getNomeProduto());
-				System.err.println(ig.getQtdProduto());
-			}
-			
-			System.err.println("--------------");
-		}
+		mv.addObject("dados", dados);
 		
-		return new ModelAndView("redirect:/grafico/inicio");
+		return mv;
 	}
 	
 

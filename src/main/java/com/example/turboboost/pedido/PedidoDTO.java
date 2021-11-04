@@ -57,6 +57,7 @@ public class PedidoDTO {
 		
 		pedido.setCodigo(GerarCodigo.gerarCodigo());
 		pedido.setDataPedido(LocalDate.now());
+		//pedido.setDataPedido(LocalDate.parse("2021-10-29"));
 		pedido.setHashCliente(cliente.getHash().toString());
 		pedido.setHashEndereco(endereco.getHash().toString());
 		pedido.setHashCartao1(cartao.getHash().toString());
