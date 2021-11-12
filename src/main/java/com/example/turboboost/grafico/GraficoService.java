@@ -156,8 +156,10 @@ public class GraficoService {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
 		int datasPercorridas = 0;
 		List<ProdutoQTD> produtos = new ArrayList<ProdutoQTD>();
+		List<Integer> indexModificados = new ArrayList<Integer>();
 		
 		for(Date d : datasGeradas) {
+			indexModificados.clear();
 			datasPercorridas += 1;
 			String dataString = sdf.format(d);
 			
@@ -196,7 +198,7 @@ public class GraficoService {
 				ProdutoQTD p = new ProdutoQTD();
 				int index = 0;
 				boolean flg = false;
-				List<Integer> indexModificados = new ArrayList<Integer>();
+				
 				
 				for(int y = 0; y < produtos.size(); y++) {
 					
@@ -233,16 +235,18 @@ public class GraficoService {
 					produtos.add(p);
 				}
 				
-				for(ProdutoQTD pq : produtos) {
-					
-					int indexAtual = produtos.indexOf(pq);
-					
-					if(!indexModificados.contains(indexAtual)) {
-						pq.getQtd().add(0);
-					}
-					
-				}
 				
+				
+				
+			}
+			
+			for(ProdutoQTD pq : produtos) {
+				
+				int indexAtual = produtos.indexOf(pq);
+				
+				if(!indexModificados.contains(indexAtual)) {
+					pq.getQtd().add(0);
+				}
 				
 			}
 			
