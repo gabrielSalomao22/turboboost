@@ -11,14 +11,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.turboboost.cliente.Ranking;
 import com.example.turboboost.commons.EntidadeBasica;
 import com.example.turboboost.commons.Usuario;
-import com.example.turboboost.cupom.CupomPromocional;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -58,6 +57,13 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	@Basic
 	@Column(name = "tipo_telefone", nullable = false)
 	private String tipoTelefone;
+	
+	@Basic
+	@Column(name = "pontuacao", nullable = false)
+	private int pontuacao;
+	
+	@Column(name = "ranking", nullable = false)
+	private Ranking ranking;
 	
 	@JoinColumn(name = "usuario", nullable = true)
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

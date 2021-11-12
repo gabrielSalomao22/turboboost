@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.turboboost.cliente.ClienteService;
 import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cupom.CupomService;
@@ -34,6 +35,9 @@ public class TrocaService {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	public void novaTroca(TrocaDTO trocaDTO, Principal principal) {
 		Optional<Cliente> clienteOptional = clienteDAO.findByEmail(principal.getName());
@@ -111,9 +115,11 @@ public class TrocaService {
 		if(status) {
 			troca.setStatus(StatusPedido.TROCA_ACEITA);
 			cupomService.gerarCupomTroca(troca.getHashCliente(), troca.getValor());
+			clienteService.alterarPontuacao(troca.getHashCliente(), 1);
 			
 		}else {
 			troca.setStatus(StatusPedido.TROCA_RECUSADA);
+			clienteService.alterarPontuacao(troca.getHashCliente(), -1);
 		}
 		
 		dao.saveAndFlush(troca);

@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.turboboost.cliente.ClienteService;
 import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
@@ -41,6 +42,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ProdutoService produtoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	
 	public void novo(PedidoDTO pedidoDTO, Principal principal) {
@@ -79,6 +83,7 @@ public class PedidoService {
 		}
 		
 		produtoService.dimunuirEstoque(pedido.getItens());
+		clienteService.alterarPontuacao(pedido.getHashCliente(), 2);
 		
 	}
 	
@@ -140,6 +145,8 @@ public class PedidoService {
 		cupomService.gerarCupomTroca(pedido.getHashCliente(), pedido.getValorTotal());
 		
 		produtoService.aumentarEstoque(hashPedido);
+		
+		clienteService.alterarPontuacao(pedido.getHashCliente(), -2);
 	}
 	
 	public PedidoDTO buscarInfosTroca(String hashPedido) {
