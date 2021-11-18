@@ -38,4 +38,10 @@ public class Produto extends EntidadeBasica{
 	
 	@Column(name = "status", nullable = false)
 	private String status;
+	
+	@Column(name = "motivoInativacao", nullable = true)
+	private String motivoInativacao;
+	
+	@Column(name = "categoria", nullable = false)
+	private Categoria categoria;
 }

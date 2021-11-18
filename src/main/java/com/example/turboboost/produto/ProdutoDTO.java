@@ -27,6 +27,9 @@ public class ProdutoDTO {
 	private String imagem;
 	private String status;
 	private int qtdDisponivel;
+	private String categoriaString;
+	private String motivoInativacao;
+	private Categoria categoria;
 	
 	//private MultipartFile imagemUpload;
 	
@@ -40,7 +43,9 @@ public class ProdutoDTO {
 		produtoDTO.setEstoque(produto.getEstoque());
 		produtoDTO.setQtdDisponivel(produto.getEstoque());
 		produtoDTO.setImagem("/imagens-produtos/" + produto.getImagem());
-		produtoDTO.setStatus(produto.getStatus());
+		produtoDTO.setStatus(produto.isHabilitado() ? "Ativo" : "Inativo");
+		produtoDTO.setMotivoInativacao(produto.getMotivoInativacao());
+		produtoDTO.setCategoriaString(produto.getCategoria().getDescricao());
 		
 		return produtoDTO;
 	}
@@ -61,6 +66,7 @@ public class ProdutoDTO {
 		String uploadDir = "imagens-produtos/";
 		
 		FileUpload.saveFile(uploadDir, fileName, file);
+		produto.setCategoria(this.categoria);
 		
 		return produto;
 	}

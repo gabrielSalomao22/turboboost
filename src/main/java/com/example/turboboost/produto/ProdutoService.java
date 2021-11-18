@@ -43,7 +43,13 @@ public class ProdutoService {
 	}
 	
 	public void deletar(String hashProduto) {
-		dao.deletarByHash(UUID.fromString(hashProduto));
+		Optional<Produto> produtoO = dao.findByHash(UUID.fromString(hashProduto));
+		Produto produto = produtoO.get();
+		
+		produto.setHabilitado(false);
+		produto.setMotivoInativacao("Optou por exclusão");
+		
+		dao.saveAndFlush(produto);
 	}
 	
 	public List<ProdutoDTO> listarParaVenda(){
@@ -99,6 +105,42 @@ public class ProdutoService {
 			
 			dao.saveAndFlush(produto);
 		}
+	}
+	
+	public void ativar(String hashProduto) {
+		Optional<Produto> produtoO = dao.findByHash(UUID.fromString(hashProduto));
+		Produto produto = produtoO.get();
+		
+		produto.setHabilitado(true);
+		produto.setMotivoInativacao(null);
+		
+		dao.saveAndFlush(produto);
+	}
+	
+	public void inativar(String hashProduto, String motivo) {
+		Optional<Produto> produtoO = dao.findByHash(UUID.fromString(hashProduto));
+		Produto produto = produtoO.get();
+		
+		produto.setHabilitado(false);
+		produto.setMotivoInativacao(motivo);
+		
+		dao.saveAndFlush(produto);
+	}
+	
+	public void inativarAutomativo(List<ItemPedido> itens) {
+		
+		for(ItemPedido i : itens) {
+			Optional<Produto> produtoO = dao.findByHash(UUID.fromString(i.getHashProduto()));
+			Produto produto = produtoO.get();
+			
+			if(produto.getEstoque() <= 0) {
+				produto.setHabilitado(false);
+				produto.setMotivoInativacao("Estoque vazio");
+			}
+			
+			dao.saveAndFlush(produto);
+		}
+		
 	}
 	
 }

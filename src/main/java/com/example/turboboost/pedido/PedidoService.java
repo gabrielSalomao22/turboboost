@@ -83,6 +83,7 @@ public class PedidoService {
 		}
 		
 		produtoService.dimunuirEstoque(pedido.getItens());
+		produtoService.inativarAutomativo(pedido.getItens());
 		clienteService.alterarPontuacao(pedido.getHashCliente(), 2);
 		
 	}

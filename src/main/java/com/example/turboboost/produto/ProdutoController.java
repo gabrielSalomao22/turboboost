@@ -45,4 +45,17 @@ public class ProdutoController {
 		service.deletar(hashProduto);
 	}
 	
+	@RequestMapping(path = "/ativarProduto", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void ativarProduto(String hashProduto) {
+		service.ativar(hashProduto);
+	}
+	
+	@RequestMapping(path = "/inativarProduto", method = RequestMethod.POST)
+	public ModelAndView inativarProduto(String hashProduto, String motivo) {
+		service.inativar(hashProduto, motivo);
+		
+		return new ModelAndView("redirect:/produto/visualizar");
+	}
+	
 }

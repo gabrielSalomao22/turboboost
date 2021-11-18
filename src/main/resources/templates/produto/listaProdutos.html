@@ -23,25 +23,34 @@
     	
     		<table class="table mt-3 text-center">
 	        <thead>
-		        <tr>			        
+		        <tr>
+		        	<th scope="col">Ativar</th>			        
 		        	<th scope="col">Editar</th>
 		        	<th scope="col">SKU</th>
 			        <th scope="col">Nome</th>
+			        <th scope="col">Categoria</th>
 			        <th scope="col">Preço</th>
 			        <th scope="col">Estoque</th>
 			        <th scope="col">Status</th>
+			        <th scope="col">Motivo inativação</th>
+			        <th scope="col">Inativar</th>
 			        <th scope="col">Remover</th>
+			        
 		        </tr>
 	        </thead>
 	
 	        <tbody>
 		        <tr th:each="produtoDTO : ${produtosDTO}">
+		        	<th><a class="ativar" th:id="${produtoDTO.hashProduto}" th:if="${produtoDTO.status != 'Ativo'}"><i class="fas fa-check ativar text-success"></i></a></th>
 		        	<th scope="row"><a class="editar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-edit text-info"></i></a></th>
 		        	<th th:text="${produtoDTO.sku}"></th>
 			        <th th:text="${produtoDTO.nome}"></th>
+			        <th th:text="${produtoDTO.categoriaString}"></th>
 			        <th th:text="'R$' + ${produtoDTO.preco}"></th>
 			       	<th th:text="${produtoDTO.estoque}"></th>
 			       	<th th:text="${produtoDTO.status}"></th>
+			       	<th th:text="${produtoDTO.motivoInativacao}"></th>
+			       	<th><a class="inativar" th:id="${produtoDTO.hashProduto}" th:if="${produtoDTO.status != 'Inativo'}"><i class="fas fa-times text-warning inativar"></i></a></th>
 			       	<th><a class="deletar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-trash text-danger deletar"></i></a></th>
 		        </tr>
 	        </tbody>
@@ -83,6 +92,15 @@
 								<input type="text" class="form-control" id="nome" name="nome" required>
 							</div>
 						</div>
+						
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="categoria">Categoria</label>
+								<select name="categoria" class="form-control" required>
+									<option th:each="categoria : ${T(com.example.turboboost.produto.Categoria).values()}" th:value="${categoria}" th:text="${categoria.descricao}"></option>
+								</select>
+							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-sm-10 col-md-10">
@@ -110,6 +128,43 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="modalInativar" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Produto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="formInativar" th:action="@{/produto/inativarProduto}" method="post"
+						th:object="${produtoDTO}" enctype="multipart/form-data">
+						<input type="hidden" id="hashProdutoInativar" name="hashProduto">
+						
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="motivo" class="form-label">Motivo da inativação</label> 
+								<input type="text" class="form-control" id="motivo" name="motivo" required>
+							</div>
+						</div>
+
+						<div class="float-right mt-2">
+							<button type="button" class="btn btn-warning"
+								data-dismiss="modal">Voltar</button>
+							<button type="submit" class="btn btn-success">Inativar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 	
 	
