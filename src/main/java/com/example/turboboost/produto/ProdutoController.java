@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,6 +55,18 @@ public class ProdutoController {
 	@RequestMapping(path = "/inativarProduto", method = RequestMethod.POST)
 	public ModelAndView inativarProduto(String hashProduto, String motivo) {
 		service.inativar(hashProduto, motivo);
+		
+		return new ModelAndView("redirect:/produto/visualizar");
+	}
+	
+	@RequestMapping(path = "/buscarEdicao", method = RequestMethod.GET)
+	public ResponseEntity<?> buscarParaEdicao(String hashProduto){
+		return new ResponseEntity(service.buscarEdicao(hashProduto), HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/editar", method = RequestMethod.POST)
+	public ModelAndView editar(ProdutoDTO produtoDTO) {
+		service.editar(produtoDTO);
 		
 		return new ModelAndView("redirect:/produto/visualizar");
 	}

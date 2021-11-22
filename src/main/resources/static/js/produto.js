@@ -69,3 +69,31 @@ $(".ativar").click(function(){
 	
 });
 
+$(".editar").click(function(){
+	console.log(this.id);
+	
+	$.ajax({
+		type: 'GET',
+		url: '/produto/buscarEdicao',
+		data: {hashProduto: this.id},
+		async: true,
+		success: function(data){
+			console.log(data);
+			let texto = "#editarCategoria option[value="+data.categoria+"]";
+			console.log(texto)
+			
+			$("#editarHashProduto").val(data.hashProduto);
+			$("#editarCategoria option[value="+data.categoria+"]").attr('selected', 'selected');
+			$("#editarNome").val(data.nome);
+			$("#editarSku").val(data.sku);
+			$("#editarPreco").val(data.preco);
+			$("#editarEstoque").val(data.estoque);
+			
+			
+			$("#modalEditar").modal('show');
+			
+			
+		}
+	})
+});
+

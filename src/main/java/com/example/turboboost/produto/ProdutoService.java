@@ -143,4 +143,20 @@ public class ProdutoService {
 		
 	}
 	
+	public ProdutoDTO buscarEdicao(String hashProduto) {
+		Optional<Produto> produtoO = dao.findByHash(UUID.fromString(hashProduto));
+		ProdutoDTO produtoDTO = ProdutoDTO.preencherDTO(produtoO.get());
+		
+		return produtoDTO;
+	}
+	
+	public void editar(ProdutoDTO produtoDTO) {
+		Optional<Produto> produtoO = dao.findByHash(produtoDTO.getHashProduto());
+		Produto produto = produtoO.get();
+		
+		produto = produtoDTO.preencherObjetoEditar(produto);
+		
+		dao.saveAndFlush(produto);
+	}
+	
 }

@@ -46,6 +46,7 @@ public class ProdutoDTO {
 		produtoDTO.setStatus(produto.isHabilitado() ? "Ativo" : "Inativo");
 		produtoDTO.setMotivoInativacao(produto.getMotivoInativacao());
 		produtoDTO.setCategoriaString(produto.getCategoria().getDescricao());
+		produtoDTO.setCategoria(produto.getCategoria());
 		
 		return produtoDTO;
 	}
@@ -66,6 +67,15 @@ public class ProdutoDTO {
 		String uploadDir = "imagens-produtos/";
 		
 		FileUpload.saveFile(uploadDir, fileName, file);
+		produto.setCategoria(this.categoria);
+		
+		return produto;
+	}
+	
+	public Produto preencherObjetoEditar(Produto produto) {
+		produto.setPreco(this.preco);
+		produto.setNome(this.nome);
+		produto.setEstoque(this.estoque);
 		produto.setCategoria(this.categoria);
 		
 		return produto;
