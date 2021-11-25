@@ -106,8 +106,10 @@
                                     </div>
 
                                     <div class="col-sm-6 col-md-6">
-                                        <label for="bandeira" class="form-label">Bandeira</label>
-                                        <input type="text" name="bandeira" id="bandeira" class="form-control" required>
+                                        <label for="bandeira">Bandeira</label>
+										<select name="bandeira" class="form-control" id="bandeira" required>
+											<option th:each="bandeira : ${T(com.example.turboboost.cliente.models.Bandeira).values()}" th:value="${bandeira}" th:text="${bandeira.descricao}"></option>
+										</select>
                                     </div>
                                 </div>
                                 

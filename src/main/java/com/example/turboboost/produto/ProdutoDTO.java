@@ -22,6 +22,7 @@ public class ProdutoDTO {
 	private UUID hashProduto;
 	private String sku;
 	private String nome;
+	private double precoCusto;
 	private double preco;
 	private int estoque;
 	private String imagem;
@@ -37,6 +38,7 @@ public class ProdutoDTO {
 		ProdutoDTO produtoDTO = new ProdutoDTO();
 		
 		produtoDTO.setHashProduto(produto.getHash());
+		produtoDTO.setPrecoCusto(produto.getPrecoCusto());
 		produtoDTO.setSku(produto.getSku());
 		produtoDTO.setNome(produto.getNome());
 		produtoDTO.setPreco(produto.getPreco());
@@ -53,13 +55,13 @@ public class ProdutoDTO {
 	
 	public Produto preencherObjeto(Produto produto, MultipartFile file) throws IOException{
 		
-		System.err.println(this.sku);
 		
 		produto.setSku(this.sku);
 		produto.setNome(this.nome);
 		produto.setPreco(this.preco);
 		produto.setEstoque(this.estoque);
 		produto.setStatus("Ativo");
+		produto.setPrecoCusto(this.precoCusto);
 		
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		produto.setImagem(fileName);
@@ -73,6 +75,7 @@ public class ProdutoDTO {
 	}
 	
 	public Produto preencherObjetoEditar(Produto produto) {
+		produto.setPrecoCusto(this.precoCusto);
 		produto.setPreco(this.preco);
 		produto.setNome(this.nome);
 		produto.setEstoque(this.estoque);

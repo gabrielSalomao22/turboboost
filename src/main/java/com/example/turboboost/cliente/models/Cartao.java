@@ -40,6 +40,6 @@ public class Cartao extends EntidadeBasica implements Serializable{
 	
 	@Basic
 	@Column(name = "bandeira", nullable = false)
-	private String bandeira;
+	private Bandeira bandeira;
 	
 }

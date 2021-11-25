@@ -51,7 +51,7 @@ public class TrocaService {
 			valorCupom += produtoOptional.get().getPreco();
 		}
 		
-		Troca troca = trocaDTO.preencherObjeto(clienteOptional.get().getHash().toString(), valorCupom, itens);
+		Troca troca = trocaDTO.preencherObjeto(clienteOptional.get().getHash().toString(), valorCupom, itens, trocaDTO.getHashPedido());
 		
 		dao.saveAndFlush(troca);
 		

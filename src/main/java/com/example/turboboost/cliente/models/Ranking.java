@@ -1,4 +1,4 @@
-package com.example.turboboost.cliente;
+package com.example.turboboost.cliente.models;
 
 public enum Ranking {
 

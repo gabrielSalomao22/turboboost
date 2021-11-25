@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.example.turboboost.cliente.Ranking;
 import com.example.turboboost.commons.EntidadeBasica;
 import com.example.turboboost.commons.Usuario;
 

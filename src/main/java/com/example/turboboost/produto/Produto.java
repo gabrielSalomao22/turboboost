@@ -27,6 +27,9 @@ public class Produto extends EntidadeBasica{
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@Column(name = "precoCusto", nullable = false)
+	private Double precoCusto;
+	
 	@Column(name = "preco", nullable = false)
 	private Double preco;
 	

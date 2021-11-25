@@ -58,11 +58,12 @@ public class TrocaDTO {
 		return trocaDTO;
 	}
 	
-	public Troca preencherObjeto(String hashCliente, double valor, List<ItemTroca> itens) {
+	public Troca preencherObjeto(String hashCliente, double valor, List<ItemTroca> itens, String hashPedido) {
 		Troca troca = new Troca();
 		
 		troca.setCodigo(GerarCodigo.gerarCodigo());
 		troca.setHashCliente(hashCliente);
+		troca.setHashPedido(hashPedido);
 		troca.setDataTroca(LocalDate.now());
 		troca.setValor(valor);
 		troca.setItens(itens);

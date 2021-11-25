@@ -2,6 +2,7 @@ package com.example.turboboost.cliente.dtos;
 
 import java.util.UUID;
 
+import com.example.turboboost.cliente.models.Bandeira;
 import com.example.turboboost.cliente.models.Cartao;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class CartaoDTO {
 	private String numeroCartao;
 	private String nomeImpresso;
 	private String cvv;
-	private String bandeira;
+	private Bandeira bandeira;
 	
 	private UUID hashCartao;
 	

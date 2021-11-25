@@ -78,11 +78,9 @@ $(".editar").click(function(){
 		data: {hashProduto: this.id},
 		async: true,
 		success: function(data){
-			console.log(data);
-			let texto = "#editarCategoria option[value="+data.categoria+"]";
-			console.log(texto)
 			
 			$("#editarHashProduto").val(data.hashProduto);
+			$("#editarPrecoCusto").val(data.precoCusto);
 			$("#editarCategoria option[value="+data.categoria+"]").attr('selected', 'selected');
 			$("#editarNome").val(data.nome);
 			$("#editarSku").val(data.sku);

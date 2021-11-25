@@ -27,7 +27,6 @@ public class GraficoController {
 		ModelAndView mv = new ModelAndView("grafico/exibir");
 		
 		GraficoDTO dados = service.gerarGrafico2(LocalDate.parse(dataInicio), LocalDate.parse(dataFinal));
-		GraficoDTO d = service.gerarDados(LocalDate.parse(dataInicio), LocalDate.parse(dataFinal));
 		
 		mv.addObject("dados", dados);
 		

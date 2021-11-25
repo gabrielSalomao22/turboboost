@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.turboboost.cliente.Ranking;
 import com.example.turboboost.cliente.models.Cartao;
 import com.example.turboboost.cliente.models.Cliente;
 import com.example.turboboost.cliente.models.Endereco;
+import com.example.turboboost.cliente.models.Ranking;
 import com.example.turboboost.commons.Usuario;
 
 import lombok.AllArgsConstructor;

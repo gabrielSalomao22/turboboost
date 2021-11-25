@@ -37,6 +37,9 @@ public class Troca extends EntidadeBasica{/**
 	@Column(name = "hashCliente", nullable = false)
 	private String hashCliente;
 	
+	@Column(name = "hashPedido", nullable = false)
+	private String hashPedido;
+	
 	@Column(name = "dataTroca", nullable = false)
 	private LocalDate dataTroca;
 	

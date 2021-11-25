@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.turboboost.cliente.dao.ClienteDAO;
 import com.example.turboboost.cliente.models.Cliente;
+import com.example.turboboost.cliente.models.Ranking;
 
 @Service
 public class ClienteService {
