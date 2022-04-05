@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/admin-layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TurboBoost AutoShoop</title>
+
+
+        <link th:href="@{/css/all.css}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+        
+        <div id="content-wrapper" class="d-flex flex-column" layout:fragment="content">
+
+            <div id="content">
+
+                <div class="container-fluid">
+                    
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <p class="h3">Cupons promocionais</p>
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">Novo</button>
+                        </div>
+                    </div>
+
+                    <table class="table mt-2 text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Valor(%)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:if="${cupomDTO.porcentagem != null}" th:each="cupomDTO : ${cuponsDTO}">
+                                <th scope="row" th:text="${cupomDTO.codigo}"></th>
+                                <th th:text="${cupomDTO.porcentagem}"></th>
+                                <th th:if="${cupomDTO.ativo}" th:text="Ativo" class="text-success"></th>
+                                <th th:if="${!cupomDTO.ativo}" th:text="Desativado" class="text-danger"></th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    
+                    <p class="h3">Cupons de clientes</p>
+
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Valor(R$)</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:if="${cupomDTO.valor != null}" th:each="cupomDTO : ${cuponsDTO}">
+                                <th scope="row" th:text="${cupomDTO.codigo}"></th>
+                                <th th:text="'R$' + ${cupomDTO.valor}"></th>
+                                <th th:if="${cupomDTO.ativo}" th:text="Ativo" class="text-success"></th>
+                                <th th:if="${!cupomDTO.ativo}" th:text="Desativado" class="text-danger"></th>
+                                <th><i class="fas fa-trash text-danger"></i></th>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Novo cupom</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          
+                            <form id="formCupom" th:action="@{/cupom/novo}" method="post"
+						th:object="${cupomDTO}" enctype="multipart/form-data">
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="codigoCupom" class="form-label">Código do cupom</label>
+                                        <input type="text" name="codigo" id="codigo" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <label for="valor" class="form-label">Valor do Cupom(%)</label>
+                                        <input type="text" name="porcentagem" id="porcentagem" class="form-control" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="float-right mt-2">
+                                  <button type="button" class="btn btn-warning" data-dismiss="modal">Voltar</button>
+                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+    
+    
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+</body>
+
+</html>

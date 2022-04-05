@@ -13,6 +13,9 @@
 			        <th scope="col">Nome</th>
 			        <th scope="col">Data de Nascimento</th>
 			        <th scope="col">CPF</th>
+			        <th scope="col">Pontuação</th>
+			        <th scope="col">Ranking</th>
+			        <th scope="col">Deletar</th>
 		        </tr>
 	        </thead>
 	
@@ -21,11 +24,18 @@
 			        <th scope="row" th:text="${clienteDTO.nome}"></th>
 			        <th th:text="${clienteDTO.dataFormatada}"></th>
 			       	<th th:text="${clienteDTO.cpf}"></th>
+			       	<th th:text="${clienteDTO.pontuacao}"></th>
+			       	<th th:text="${clienteDTO.ranking}"></th>
+			       	<th><i class="fas fa-trash text-danger deletar" th:id="${clienteDTO.hashCliente}"></i></th>
 		        </tr>
 	        </tbody>
         </table>
 		
 	</div>
+	
+	<th:block layout:fragment="script">
+	    <script th:src="@{/js/admin.js}"></script>		
+	</th:block>
 
 </body>
 </html>

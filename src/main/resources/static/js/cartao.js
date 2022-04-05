@@ -54,7 +54,8 @@ $(".editar").click(function(){
 			$("#numeroCartao").val(data.numeroCartao);
 			$("#nomeImpresso").val(data.nomeImpresso);
 			$("#cvv").val(data.cvv);
-			$("#bandeira").val(data.bandeira);
+			//$("#bandeira").val(data.bandeira);
+			$("#bandeira option[value="+data.bandeira+"]").attr('selected', 'selected');
 			
 			$("#exampleModal").modal('show');
 			

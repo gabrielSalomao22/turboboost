@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurboBoost AutoShoop</title>
+
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/sb-admin-2.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-light bg-light">
+            <a th:href="@{/}" class="navbar-brand">
+                <img th:src="@{imgs/logo3.png}" alt="" width="30" height="30" class="d-inline-block align-top">
+                TurboBoost AutoShoop
+            </a>
+
+        </nav>
+        
+        <style>
+        	input::-webkit-outer-spin-button,
+        	input::-webkit-inner-spin-button{
+            -webkit-aparence: none;
+            margin: 0;
+	        }
+	
+	        input[type=number]{
+	            -moz-appearance: textfield;
+	        }
+        </style>
+    </header>
+    
+    <div class="container mt-5">
+
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-8">
+                <div class="p-2">
+                    <h3 class="font-weight-bold">Carrinho</h3>
+                </div>
+
+			
+			<form th:action="@{/pedido/prosseguir}" method="post" th:object="${pedidoDTO}" id="carrinho">
+                <div class="d-flex flex-row justify-content-between align-items-center p2 bg-white mt-4 px-3 rounded" th:each="produtoDTO : ${produtosDTO}">
+                    <div class="mr-1 col-sm-3">
+                        <!-- <img src="img/turbina.jpg" alt="" class="rounded" width="70"> -->
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center product-details col-sm-3">
+                        <span class="font-weight-bold" th:text="${produtoDTO.nome}"></span>
+                        <input type="hidden" th:value="${produtoDTO.hashProduto}" name="hashProduto" id="itemPedido.hashProduto">
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center col-sm-3">
+                    	<i class="fas fa-minus text-danger mr-2 diminuir"></i>
+                        <input type="number" class="text-center" value="1" size="3" min="1" th:max="${produtoDTO.qtdDisponivel}" name="quantidadeItem" th:id="${produtoDTO.hashProduto}" readonly>
+                        <i class="fas fa-plus text-success ml-2 aumentar"></i>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <h5 class="text-grey" th:text="'R$' + ${produtoDTO.preco}"></h5>
+                        <input type="hidden" th:value="${produtoDTO.preco}" th:name="${produtoDTO.hashProduto}">
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-trash text-danger"></i>
+                    </div>
+                </div>
+                
+                <input type="hidden" th:value="${precoTotal}" name="precoTotal" id="precoTotal">
+			
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white">
+                    <h4 th:text="'Total: R$' + ${precoTotal}" id="valorText"></h4>
+                </div>
+
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
+                    <input type="text" class="form-control border-0" placeholder="Cupom" name="cupom" id="cupom">
+                    <a class="btn btn-outline-primary ml-2 aplicar">Aplicar</a>
+                </div>
+				<p class="ml-4 text-danger invisible" id="msgCupom">Cupom inválido, ou já utilizado</p>
+
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white">
+                    <button type="submit" class="btn btn-success btn-block btn-lg ml-2">Finalizar Compra</button>
+                </div>
+              </form>
+            </div>
+        </div>
+
+    </div>
+
+        <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/js/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+    <script th:src="@{/js/jquery.mask.js}"></script>
+
+    
+    <script th:src="@{/js/venda.js}"></script>
+</body>
+</html>

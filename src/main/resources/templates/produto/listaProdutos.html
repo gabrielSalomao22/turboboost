@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="common/admin-layout">
+
+<head>
+
+
+</head>
+
+<body id="page-top">
+
+    <div class="content-wrapper ml-4" layout:fragment="content">
+    
+    	    <div class="row">
+            	<div class="col-sm-11">
+            		<p class="h3">Produtos</p>
+            	</div>
+
+            	<div class="col-sm-1">
+            		<button class="btn btn-primary btn-lg novo" data-toggle="modal" data-target="#exampleModal">Novo</button>
+            	</div>
+            </div>
+    	
+    		<table class="table mt-3 text-center">
+	        <thead>
+		        <tr>
+		        	<th scope="col">Ativar</th>			        
+		        	<th scope="col">Editar</th>
+		        	<th scope="col">SKU</th>
+			        <th scope="col">Nome</th>
+			        <th scope="col">Categoria</th>
+			        <th scope="col">Preço de custo</th>
+			        <th scope="col">Preço</th>
+			        <th scope="col">Estoque</th>
+			        <th scope="col">Status</th>
+			        <th scope="col">Motivo inativação</th>
+			        <th scope="col">Inativar</th>
+			        <th scope="col">Remover</th>
+			        
+		        </tr>
+	        </thead>
+	
+	        <tbody>
+		        <tr th:each="produtoDTO : ${produtosDTO}">
+		        	<th><a class="ativar" th:id="${produtoDTO.hashProduto}" th:if="${produtoDTO.status != 'Ativo'}"><i class="fas fa-check ativar text-success"></i></a></th>
+		        	<th scope="row"><a class="editar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-edit text-info editar" th:id="${produtoDTO.hashProduto}"></i></a></th>
+		        	<th th:text="${produtoDTO.sku}"></th>
+			        <th th:text="${produtoDTO.nome}"></th>
+			        <th th:text="${produtoDTO.categoriaString}"></th>
+			        <th th:text="'R$' + ${produtoDTO.precoCusto}"></th>
+			        <th th:text="'R$' + ${produtoDTO.preco}"></th>
+			       	<th th:text="${produtoDTO.estoque}"></th>
+			       	<th th:text="${produtoDTO.status}"></th>
+			       	<th th:text="${produtoDTO.motivoInativacao}"></th>
+			       	<th><a class="inativar" th:id="${produtoDTO.hashProduto}" th:if="${produtoDTO.status != 'Inativo'}"><i class="fas fa-times text-warning inativar"></i></a></th>
+			       	<th><a class="deletar" th:id="${produtoDTO.hashProduto}"><i class="fas fa-trash text-danger deletar"></i></a></th>
+		        </tr>
+	        </tbody>
+        </table>
+    
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Produto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="formProduto" th:action="@{/produto/novoProduto}" method="post"
+						th:object="${produtoDTO}" enctype="multipart/form-data">
+						<input type="hidden" id="hashProduto" name="hashProduto">
+						
+						<div class="row">
+							<label for="imagemProduto" class="form-label">Imagem</label>
+							<input type="file" id="imagemUpload" name="imagemUpload" accept="image/png, imagem/jpeg, image/jpg" class="form-control">
+						</div>
+											
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="sku" class="form-label">SKU</label>
+								<input type="text" class="form-control"
+									id="sku" th:name="sku" required>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="nome" class="form-label">Nome</label> 
+								<input type="text" class="form-control" id="nome" name="nome" required>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="categoria">Categoria</label>
+								<select name="categoria" class="form-control" required>
+									<option th:each="categoria : ${T(com.example.turboboost.produto.Categoria).values()}" th:value="${categoria}" th:text="${categoria.descricao}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row">						
+							<div class="col-sm-5 col-md-5">
+								<label for="precoCusto" class="form-label">Preço de custo</label> 
+								<input type="number" class="form-control" id="precoCusto"
+									name="precoCusto" step="0.01" required>
+							</div>
+							
+							<div class="col-sm-5 col-md-5">
+								<label for="preco" class="form-label">Preço</label> 
+								<input type="number" class="form-control" id="preco"
+									name="preco" step="0.01" required>
+							</div>
+
+							<div class="col-sm-2 col-md-2">
+								<label for="estoque" class="form-label">Quantidade</label> 
+								<input type="number" class="form-control" id="estoque" name="estoque"
+									required>
+							</div>
+
+						</div>
+
+						<div class="float-right mt-2">
+							<button type="button" class="btn btn-warning"
+								data-dismiss="modal">Voltar</button>
+							<button type="submit" class="btn btn-success">Salvar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modalInativar" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Produto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="formInativar" th:action="@{/produto/inativarProduto}" method="post"
+						th:object="${produtoDTO}" enctype="multipart/form-data">
+						<input type="hidden" id="hashProdutoInativar" name="hashProduto">
+						
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="motivo" class="form-label">Motivo da inativação</label> 
+								<input type="text" class="form-control" id="motivo" name="motivo" required>
+							</div>
+						</div>
+
+						<div class="float-right mt-2">
+							<button type="button" class="btn btn-warning"
+								data-dismiss="modal">Voltar</button>
+							<button type="submit" class="btn btn-success">Inativar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modalEditar" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Produto</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form id="formProduto" th:action="@{/produto/editar}" method="post"
+						th:object="${produtoDTO}" enctype="multipart/form-data">
+						<input type="hidden" id="editarHashProduto" name="hashProduto">
+												
+											
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="sku" class="form-label">SKU</label>
+								<input type="text" class="form-control"
+									id="editarSku" th:name="sku" readonly>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="nome" class="form-label">Nome</label> 
+								<input type="text" class="form-control" id="editarNome" name="nome" required>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-12 col-md-12">
+								<label for="categoria">Categoria</label>
+								<select name="categoria" class="form-control" id="editarCategoria" required>
+									<option th:each="categoria : ${T(com.example.turboboost.produto.Categoria).values()}" th:value="${categoria}" th:text="${categoria.descricao}"></option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-5 col-md-5">
+								<label for="precoCusto" class="form-label">Preço de custo</label> 
+								<input type="number" class="form-control" id="editarPrecoCusto"
+									name="precoCusto" step="0.01" required>
+							</div>
+							
+							<div class="col-sm-10 col-md-10">
+								<label for="preco" class="form-label">Preço</label> 
+								<input type="number" class="form-control" id="editarPreco"
+									name="preco" step="0.01" required>
+							</div>
+
+							<div class="col-sm-2 col-md-2">
+								<label for="estoque" class="form-label">Quantidade</label> 
+								<input type="number" class="form-control" id="editarEstoque" name="estoque"
+									required>
+							</div>
+
+						</div>
+
+						<div class="float-right mt-2">
+							<button type="button" class="btn btn-warning"
+								data-dismiss="modal">Voltar</button>
+							<button type="submit" class="btn btn-success">Salvar</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+    </div>
+
+	<th:block layout:fragment="script">
+		<script th:src="@{/js/produto.js}"></script>	
+	</th:block>
+
+</body>
+
+</html>

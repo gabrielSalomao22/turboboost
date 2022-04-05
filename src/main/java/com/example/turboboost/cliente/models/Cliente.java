@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -58,6 +57,13 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	@Column(name = "tipo_telefone", nullable = false)
 	private String tipoTelefone;
 	
+	@Basic
+	@Column(name = "pontuacao", nullable = false)
+	private int pontuacao;
+	
+	@Column(name = "ranking", nullable = false)
+	private Ranking ranking;
+	
 	@JoinColumn(name = "usuario", nullable = true)
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Usuario usuario;
@@ -69,5 +75,6 @@ public class Cliente extends EntidadeBasica implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id")
 	private List<Cartao> cartoes = new ArrayList<Cartao>();
+	
 
 }
